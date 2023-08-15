@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+ul.ngx-pagination.ng-star-inserted {
+    margin-top: 25px;
+}
+button#insertImage- {
+    display: none;
+}
+
+button#insertVideo- {
+    display: none;
+}
+
+
+ae-select.select-font {
+    display: none !important;
+}

@@ -1,0 +1,150 @@
+<div class="app-main__inner">
+    <div class="add-new-cus">
+         
+    </div>
+   <div class="user-header customers-header">
+        <h3>Product Detail 
+            <!-- <a href="">Edit</a> -->
+        
+        </h3> 
+    </div>
+
+    <section class="address-info-form">
+        <div class="product-detail-inner">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="product-detail-img">
+                        <span *ngIf="!productDetail.productImages[0]?.productDetailImagePath">
+                            <img src="assets/images/chefimage.png" class="w-100">
+                        </span>
+                        <span *ngIf="productDetail.productImages[0]?.productDetailImagePath">
+                            <p><img src="{{imagePath}}/{{productDetail.productImages[0]?.productDetailImagePath}}" class="w-100"></p>
+                        </span>
+                        <ul>
+                            <li  *ngFor="let img of productDetail.productImages; let i = index;"> <img src="{{imagePath}}/{{img.productDetailImagePath}}"></li>
+            
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="col-md-8">
+                    <div class="product-detail-info">
+                        <h6 *ngIf="productDetail?.categoryId">{{productDetail?.categoryId}}</h6>
+                        <h3>{{productDetail?.productDescription}}</h3>
+                        <p *ngIf="productDetail?.feature1"><b>Description:</b> {{productDetail.feature1}}</p><p *ngIf="productDetail?.feature2">{{productDetail?.feature2}}</p><p *ngIf="productDetail?.feature3">{{productDetail?.feature3}}</p>
+                        <p *ngIf="productDetail?.agreementValue"><b>Agreement Price:</b> AED {{productDetail.agreementValue}}</p>
+                        <p *ngIf="productDetail?.salesPrice"><b>Sale Price:</b> AED {{productDetail.salesPrice}}</p>
+                        <p *ngIf="productDetail?.fromDate"><b>From Date:</b> {{productDetail.fromDate | date:'longDate' }}</p>
+                        <p *ngIf="productDetail?.toDate"><b>To Date:</b> {{productDetail.toDate | date:'longDate'}}</p>
+                        <p *ngIf="productDetail?.brand"><b>Brand:</b> {{productDetail.brand}}</p>
+                        <p *ngIf="productDetail?.weight"><b>Size:</b> {{productDetail.weight}}</p>
+                        <p *ngIf="productDetail?.status"><b>Status:</b> {{productDetail.status}}</p>
+                        <p *ngIf="productDetail?.origin"><b>Origin:</b> {{productDetail.origin}}</p>
+                        <p *ngIf="productDetail?.productId"><b>Code:</b> {{productDetail.productId}}</p>
+                        <p *ngIf="productDetail?.caffeine"><b>Caffeine:</b> {{productDetail.caffeine}}</p>
+                        <p *ngIf="productDetail?.sugarFree"><b>Sugar Free:</b> {{productDetail.sugarFree}}</p>
+                        <p *ngIf="productDetail?.lactose"><b>Lactose:</b> {{productDetail.lactose}}</p>
+                        <p *ngIf="productDetail?.nuts"><b>Nuts:</b> {{productDetail.nuts}}</p>
+                        <p *ngIf="productDetail?.lowFat"><b>Low Fat:</b> {{productDetail.lowFat}}</p>
+                        <p *ngIf="productDetail?.lowSalt"><b>Low Salt:</b> {{productDetail.lowSalt}}</p>
+                        <p *ngIf="productDetail?.organic"><b>Organic:</b> {{productDetail.organic}}</p>
+                        <p *ngIf="productDetail?.reducedSugar"><b>Reduced Suger:</b> {{productDetail.reducedSugar}}</p>
+                        <p *ngIf="productDetail?.vegan"><b>Vegan:</b> {{productDetail.vegan}}</p>
+                        <p *ngIf="productDetail?.vegetarian"><b>Vegetarian:</b> {{productDetail.vegetarian}}</p>
+                        <p *ngIf="productDetail?.halalSuitable"><b>Halal Suitable:</b> {{productDetail.halalSuitable}}</p>
+                        <p *ngIf="productDetail?.kosherSuitable"><b>Kosher Suitable:</b> {{productDetail.kosherSuitable}}</p>
+                        <p *ngIf="productDetail?.glutenFree"><b>Gluten Free:</b> {{productDetail.glutenFree}}</p>
+                        <p *ngIf="productDetail?.availableQuantity"><b>Available Quantity:</b> {{productDetail.availableQuantity}}</p>
+                        <p *ngIf="productDetail?.subCategoryId"><b>Sub-Category:</b> {{productDetail.subCategoryId}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox"  (click)="productSingleStatus(productDetail.productId,$event)" value="" id="defaultCheck1" [(ngModel)]="isChecked">
+            <label class="form-check-label" for="defaultCheck1">
+             Active Product
+            </label>
+          </div>
+    </section>
+    <section class="products-main">
+        <div class="row">
+            <div class="col-md-3" *ngFor="let item of relatedProducts;  let i = index;">
+                <div class="product-inner">
+                    <!-- <a [routerLink]="['/product/',item.productId]"> -->
+                    <a [routerLink]="['/product/',item.productId]" (click)="sendObject(item)">
+                        <span *ngIf="item.productImage"><img src="{{item.productImage}}"></span>
+                        <span *ngIf="!item.productImage"><img src="assets/images/product-1.png"></span>
+                        <h5>{{item.productDescription}}</h5>
+                        <!-- <p><i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                        </p> -->
+                        <h3>AED {{item.agreementValue}}</h3>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        <!-- <div class="row mt-4 mb-4">
+            <div class="col-md-3">
+                <div class="product-inner">
+                    <span><img src="assets/images/product-1.png"></span>
+                    <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                    <p><i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                    </p>
+                    <h3>AED 68.00</h3>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="product-inner">
+                    <span><img src="assets/images/product-2.png"></span>
+                    <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                    <p><i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                    </p>
+                    <h3>AED 68.00</h3>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="product-inner">
+                    <span><img src="assets/images/product-3.png"></span>
+                    <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                    <p><i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                    </p>
+                    <h3>AED 68.00</h3>
+                </div>
+            </div>
+             <div class="col-md-3">
+                <div class="product-inner">
+                    <span><img src="assets/images/product-4.png"></span>
+                    <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                    <p><i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                    </p>
+                    <h3>AED 68.00</h3>
+                </div>
+            </div> 
+          </div> -->
+          
+      </section>
+
+     
+
+</div>

@@ -1,0 +1,190 @@
+<div class="app-main__inner">
+    <div class="user-header">
+        <h3> Recipes Detail <a [routerLink]="['/recipes/edit/',recipeDetail.recipeId]">Edit Recipe</a></h3> 
+
+    </div>
+
+    <div class="recipes-main">
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="recipes-inner">
+                  <div *ngIf="showImage">
+                    <img src="{{imagePath}}/{{recipeImage}}" >
+                  </div>
+                  <div *ngIf="!showImage">
+                    <img src="assets/images/recipe1.jpg">
+                  </div>  
+                    
+                    <div class="recipes-text">
+                        <h3>{{recipeDetail.recipeTitle}} </h3>
+                        <p>{{recipeDetail.recipeDescription}}</p>
+                         
+                    </div>
+                </div>
+            </div>
+
+             <div class="col-md-12 mt-4">
+                <div class="recipes-inner">
+                  
+                  <div class="recipe-detail-text">
+                    <h3>{{recipeDetail.recipeTitle}}</h3>
+                    <h6>{{recipeDetail.recipeDate | date: 'longDate'}}</h6>
+                    <!-- <span class="rating-recipe"><i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i> Rated 5 stars by 1 users</span> -->
+                    <h3>Ingredient To Show</h3>
+                    <table class="table recipe-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Ingredient Name</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Unit</th>
+                          <th scope="col">Servings</th>
+                          <th scope="col">Prep Time</th>
+                          <th scope="col">Cook Time</th>
+                          <th scope="col">Calories</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <tr *ngFor="let ingredient of recipeDetail.ingredientToShow">
+                          
+                          <td>
+                            {{ingredient.ingredientName}}
+                          </td>
+                          <td>
+                            {{ingredient.quantity}}
+                          </td>
+                          <td>
+                            {{ingredient.unit}}
+                          </td>
+                          <td>{{recipeDetail.serving}}</td>
+                          <td>{{recipeDetail.preparetime}}</td>
+                          <td>{{recipeDetail.cookingTime}}</td>
+                           <td>{{recipeDetail.calories}}</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                    <h3>Ingredient To Sale</h3>
+                    <table class="table recipe-table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Ingredient Name</th>
+                          <th scope="col">Minimum Order</th>
+                          <th scope="col">Servings</th>
+                          <th scope="col">Prep Time</th>
+                          <th scope="col">Cook Time</th>
+                          <th scope="col">Calories</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                        <tr *ngFor="let ingredient of recipeDetail.ingredientToSale">
+                          
+                          <td>
+                            {{ingredient.ingredientName}}
+                          </td>
+                          <td>
+                            {{ingredient.minimumOrder}}
+                          </td>
+                          
+                          <td>{{recipeDetail.serving}}</td>
+                          <td>{{recipeDetail.preparetime}}</td>
+                          <td>{{recipeDetail.cookingTime}}</td>
+                           <td>{{recipeDetail.calories}}</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                    <!-- <p class="italic-recipe-text"><i>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s Lorem Ipsum</i></p> -->
+
+                     <h3 class="mb-1">Author:</h3>
+                     <p>Chef ME at Home</p>
+                     <!-- <img src="assets/images/recipe1.jpg" class="rounded"> -->
+                     <iframe width="747" height="420" [src]="videoUrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                     <!-- <iframe width="747" height="420" [src]="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+                  </div>
+
+                  <div class="recipe-list">
+                    <div class="row">
+                            <div class="col-md-6">
+                                <h3>Ingredients:</h3>
+                                <p>{{recipeDetail.keyIngredients}}</p>
+                                <!-- <ol type="a">
+                                    <li>
+                                      {{recipeDetail.keyIngredients}}
+                                    </li>
+                                </ol> -->
+                            </div>
+                             <div class="col-md-6">
+                                <h3>Directions:</h3>
+                                  <p>{{recipeDetail.topTips}}</p>
+                                   <!-- <ol type="a">
+                                    <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                     <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                      <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                       <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                        <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                         <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                          <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                           <li>Contrary to popular belief, Lorem Ipsum is not simply</li>
+                                </ol> -->
+                            </div>
+                    </div>
+                  </div>
+                   
+                </div>
+
+
+                <div class="recipes-inner mt-4">
+
+                  <div class="recipe-list">
+                    <div class="row">
+                            <div class="col-md-12">
+                                <h3>Recipe Note</h3>
+                                <ol type="a">
+                                    {{recipeDetail.recipeNote}}
+                                </ol>
+                            </div>
+                             
+                    </div>
+                  </div>
+                </div>
+
+                 <div class="recipes-inner mt-4">
+                  <div class="recipe-list">
+                     <h3>Nutrition</h3>
+                    <table class="table recipe-table mt-0">
+                      <thead>
+                        <tr>
+                          <th scope="col">Category</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Servings</th>
+                          <th scope="col">Prep Time</th>
+                          <th scope="col">Cook Time</th>
+                          <th scope="col">Calories</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let nutrition of recipeDetail.nutritionList">
+                          <td>{{nutrition.nutritionType}}</td>
+                          <td>{{nutrition.quantity}}</td>
+                          <td>{{recipeDetail.serving}}</td>
+                          <td>{{recipeDetail.preparetime}}</td>
+                          <td>{{recipeDetail.cookingTime}}</td>
+                           <td>{{recipeDetail.calories}}</td>
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

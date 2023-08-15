@@ -1,0 +1,617 @@
+<div class="app-main__inner">
+    <div class="add-new-cus campaign">
+        <h3 class="heading">Campaign Management </h3> 
+        <a class="add-new" [routerLink]="['/campaign/add']">Add New Campaign</a>
+    </div>
+    <div class="user-header customers-header campaign-header">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">All Campaigns</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Active</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">Expired</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">Archieved</a>
+            </li>
+        </ul><!-- Tab panes -->
+    </div>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+            <div class="user-list-table">
+                <table class="table">
+                <thead class="" style="background-color: #8eb73b;">
+                    <tr>
+                    <th scope="col">Sr. No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Reach</th>
+                    <th scope="col">Clicked</th>
+                    <th scope="col">Comparison</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Rhyno James</td>
+                    <td>555</td>
+                    <td>19.6%</td>
+                    <td>12.4%</td>
+                    <td>Active</td>
+                    <td>
+                        <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>   
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Josh Butler</td>
+                        <td>542</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Moeen Ali</td>
+                        <td>888</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>  
+                    </tr>
+                    
+                    <tr>
+                        <td>4</td>
+                        <td>Alex Hales</td>
+                        <td>630</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Markarn Deo</td>
+                        <td>890</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+        
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Rhyno James</td>
+                        <td>555</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>   
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Josh Butler</td>
+                            <td>542</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Moeen Ali</td>
+                            <td>888</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Active</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>  
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Alex Hales</td>
+                            <td>630</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Expired</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Markarn Deo</td>
+                            <td>890</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+            
+                        </tr>
+                </tbody>
+                </table>
+            </div><!--user-list-table-->
+        </div>
+        <div class="tab-pane" id="tabs-2" role="tabpanel">
+            <div class="user-list-table">
+                <table class="table">
+                <thead class="" style="background-color: #8eb73b;">
+                    <tr>
+                        <th scope="col">Sr. No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Reach</th>
+                        <th scope="col">Clicked</th>
+                        <th scope="col">Comparison</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Rhyno James</td>
+                    <td>555</td>
+                    <td>19.6%</td>
+                    <td>12.4%</td>
+                    <td>Active</td>
+                    <td>
+                        <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>   
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Josh Butler</td>
+                        <td>542</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Moeen Ali</td>
+                        <td>888</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>  
+                    </tr>
+                    
+                    <tr>
+                        <td>4</td>
+                        <td>Alex Hales</td>
+                        <td>630</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Markarn Deo</td>
+                        <td>890</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+        
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Rhyno James</td>
+                        <td>555</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Active</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>   
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Josh Butler</td>
+                            <td>542</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Active</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Moeen Ali</td>
+                            <td>888</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Active</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>  
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Alex Hales</td>
+                            <td>630</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Active</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Markarn Deo</td>
+                            <td>890</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Active</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+        
+                        </tr>
+                </tbody>
+                </table>
+            </div><!--user-list-table-->
+        </div>
+        <div class="tab-pane" id="tabs-3" role="tabpanel">
+            <div class="user-list-table">
+                <table class="table">
+                <thead class="" style="background-color: #8eb73b;">
+                    <tr>
+                        <th scope="col">Sr. No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Reach</th>
+                        <th scope="col">Clicked</th>
+                        <th scope="col">Comparison</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Rhyno James</td>
+                    <td>555</td>
+                    <td>19.6%</td>
+                    <td>12.4%</td>
+                    <td>Expired</td>
+                    <td>
+                        <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>   
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Josh Butler</td>
+                        <td>542</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Moeen Ali</td>
+                        <td>888</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>  
+                    </tr>
+                    
+                    <tr>
+                        <td>4</td>
+                        <td>Alex Hales</td>
+                        <td>630</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Markarn Deo</td>
+                        <td>890</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+        
+                    
+                        
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Rhyno James</td>
+                        <td>555</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Expired</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>   
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Josh Butler</td>
+                            <td>542</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Expired</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Moeen Ali</td>
+                            <td>888</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Expired</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>  
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Alex Hales</td>
+                            <td>630</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Expired</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Markarn Deo</td>
+                            <td>890</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Expired</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                </tbody>
+                </table>
+            </div><!--user-list-table-->
+        </div>
+        <div class="tab-pane" id="tabs-4" role="tabpanel">
+            <div class="user-list-table">
+                <table class="table">
+                <thead class="" style="background-color: #8eb73b;">
+                    <tr>
+                        <th scope="col">Sr. No</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Reach</th>
+                        <th scope="col">Clicked</th>
+                        <th scope="col">Comparison</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Rhyno James</td>
+                    <td>555</td>
+                    <td>19.6%</td>
+                    <td>12.4%</td>
+                    <td>Archieved</td>
+                    <td>
+                        <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    </td>   
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Josh Butler</td>
+                        <td>542</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td> 
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Moeen Ali</td>
+                        <td>888</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>  
+                    </tr>
+                    
+                    <tr>
+                        <td>4</td>
+                        <td>Alex Hales</td>
+                        <td>630</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Markarn Deo</td>
+                        <td>890</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>
+        
+                    
+                        
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Rhyno James</td>
+                        <td>555</td>
+                        <td>19.6%</td>
+                        <td>12.4%</td>
+                        <td>Archieved</td>
+                        <td>
+                            <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                        </td>   
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Josh Butler</td>
+                            <td>542</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Moeen Ali</td>
+                            <td>888</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>  
+                        </tr>
+
+                        <tr>
+                            <td>9</td>
+                            <td>Alex Hales</td>
+                            <td>630</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>Markarn Deo</td>
+                            <td>890</td>
+                            <td>19.6%</td>
+                            <td>12.4%</td>
+                            <td>Archieved</td>
+                            <td>
+                                <a href="edit-customer.html" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                            </td>
+                        </tr>
+                </tbody>
+                </table>
+            </div><!--user-list-table-->
+        </div>
+    </div>
+
+    
+
+    <div class="table-pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+    </div>
+
+</div>

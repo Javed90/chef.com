@@ -1,0 +1,19 @@
+.customer-delete-model.cities .modal-body {
+    text-align: left;
+}
+.form-group {
+    position: relative;
+}
+
+.invalid-formdata {
+    position: absolute;
+    bottom: -19px;
+    right: 0px;
+    color: #fff;
+    background: red;
+    padding: 0px 5px;
+    font-size: 13px;
+}
+.customers-header input {
+    max-width: 100%;
+}

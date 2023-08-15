@@ -1,0 +1,230 @@
+<div class="app-main__inner">
+   <div class="tab-content">
+
+        <div class="user-header">
+            <h3>{{title}} Coupon </h3> 
+
+        </div>
+
+        <section class="address-info-form">
+            <form  [formGroup]="couponForm">
+                <input type="hidden" name="discountAmount" formControlName="discountAmount">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <label for="inputEmail4">Coupon Code</label>
+                      <input type="text" name="couponCode" class="form-control" formControlName="couponCode" placeholder="Coupon Code" (input)="forceUppercaseConditionally($event)">
+                    <div *ngIf="submitted && f['couponCode'].errors" class="invalid-formdata">
+                        Coupon Code is required
+                    </div>
+                    <div *ngIf="isCheckCouponError" class="invalid-formdata">
+                       Coupon code already exists
+                    </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                      <label for="inputPassword4">Usage Limit Per User</label>
+                      <input type="number" class="form-control"  min="0" name="usageLimitPerUser" formControlName="usageLimitPerUser" id="inputPassword4" placeholder="Usage Limit">
+                      <div *ngIf="submitted && f['usageLimitPerUser'].errors && !f['usageLimitPerUser'].errors?.['min']" class="invalid-formdata">
+                        Usage Limit Per User is required
+                      </div>
+                      <div *ngIf="f['usageLimitPerUser'].errors?.['min']" class="invalid-formdata">
+                        Minimum required number is 1.
+                     </div>
+                    </div>
+                  </div>
+      
+                  <div class="form-row">
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">Usage of Discount Code</label>
+                      <input type="number" class="form-control" id="inputEmail4" min="0" name="usageLimitDiscountCode" formControlName="usageLimitDiscountCode" placeholder="Usage of Discount Code">
+                      <div *ngIf="submitted && f['usageLimitDiscountCode'].errors && !f['usageLimitDiscountCode'].errors?.['min']" class="invalid-formdata">
+                        Usage of Discount Code is required
+                      </div>
+                      <div *ngIf="f['usageLimitDiscountCode'].errors?.['min']" class="invalid-formdata">
+                        Minimum required number is 1.
+                     </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputPassword4">From Date</label>
+                      <input type="text" class="form-control" name="couponFromDate"
+                      bsDatepicker
+                      [minDate]="minDate"
+                      autocomplete="off"
+                      [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                      readonly
+                       formControlName="couponFromDate" id="inputPassword4" placeholder="From Date" >
+                      <div *ngIf="submitted && f['couponFromDate'].errors" class="invalid-formdata">
+                        Coupon From Date is required
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="inputEmail4">To Date</label>
+                      <input type="text" class="form-control" name="couponToDate"
+                      bsDatepicker
+                      [minDate]="minFromToDate"
+                      
+                      autocomplete="off"
+                      [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                      readonly
+                      formControlName="couponToDate" id="inputEmail4" placeholder="To Date" (click)="changeMinDate()">
+                      <div *ngIf="submitted && f['couponToDate'].errors" class="invalid-formdata">
+                        Coupon To date is required
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="inputPassword4" class="isglobalcupons"> <input type="checkbox" formControlName="isGlobal"  id="3" class="form-check-input isglobal"> <span>Coupon for all Products</span> </label>
+                    </div>
+                  </div>   
+                   
+                <div class="form-row" *ngIf="f['isGlobal'].value !=true">
+                    
+                    <!-- <div class="productRC" *ngIf="f['isGlobal'].value !=true">
+                       
+                    </div> -->
+                    <!-- <div class="form-group col-md-6" *ngIf="!couponChooseRecipe && !couponChooseCollection"> -->
+                      <div class="form-group col-md-6">   
+                       <label for="inputAddress">Choose Category</label>
+                       <ng-multiselect-dropdown
+                        [settings]="dropdownCategorySettings"
+                        [data]="allCategories"
+                        (onSelect)="selectCategoryEvent($event)"
+                        (onSelectAll)="onSelectAllCategory($event)"
+                        (onDeSelect)="DropDownClose($event)"
+                        (onDeSelectAll)="onDeSelectAllCategory($event)"
+                        formControlName="categoryId"
+                        >
+                      </ng-multiselect-dropdown>
+                    </div>
+                    <!-- <div class="form-group col-md-6" *ngIf="!couponChooseRecipe && !couponChooseCollection"> -->
+                      <div class="form-group col-md-6">
+                      <label for="inputAddress">Choose Sub-Category</label>
+                      <ng-multiselect-dropdown
+                       [settings]="dropdownSubCategorySettings"
+                       [data]="subCategoryNames"
+                       (onSelect)="selectSubCategoryEvent($event)"
+                       (onSelectAll)="onSelectAllSubCategory($event)"
+                       (onDeSelect)="DropSubClose($event)"
+                       (onDeSelectAll)="onDeSelectAllSubCategory($event)"
+                       formControlName = "subCategoryId"
+                       >
+                     </ng-multiselect-dropdown>
+                   </div>
+                  <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!couponChooseRecipe && !couponChooseCollection"> -->
+                    <div class="form-group col-md-3">
+                    <label for="inputAddress">Choose Product</label>
+                    <ng-multiselect-dropdown
+                      [settings]="dropdownSettings"
+                      [data]="searchProducts"
+                      (onSelect)="onItemSelect($event)"
+                      (onSelectAll)="onSelectAllProducts($event)"
+                      (onDeSelect)="DropDownProductClose($event)"
+                      (onDeSelectAll)="onDeSelectProducts($event)"
+                      formControlName="productId">
+                    </ng-multiselect-dropdown>
+                  </div>
+    
+                  <!-- <div class="col-md-1 m-auto" *ngIf="couponProductOr"> -->
+                  <div class="col-md-1 m-auto">
+                    <div class="devider-class">
+                      <span>Or</span>
+                    </div>
+                  </div>
+    
+                  <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!couponChooseProduct && !couponChooseCollection"> -->
+                    <div class="form-group col-md-3">
+
+                    <label for="inputAddress">Choose Recipes</label>
+                    <ng-multiselect-dropdown
+                      [settings]="dropdownRecipeSettings"
+                      [data]="allRecipes"
+                      (onSelect)="onItemSelectRecipe($event)"
+                      (onSelectAll)="onSelectAllRecipe($event)"
+                      (onDeSelect)="DropDownRecipeClose($event)"
+                      (onDeSelectAll)="onDeSelectRecipes($event)"
+                      formControlName="recipeId">
+                    </ng-multiselect-dropdown>
+                  </div>
+                  <!-- <div class="col-md-1 m-auto" *ngIf="couponProductOr"> -->
+                  <div class="col-md-1 m-auto">
+                    <div class="devider-class">
+                      <span>Or</span>
+                    </div>
+                  </div>
+                  <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!couponChooseProduct && !couponChooseRecipe"> -->
+                    <div class="form-group col-md-3">
+                    <label for="inputAddress">Choose Collections</label>
+                    <ng-multiselect-dropdown
+                      [settings]="dropdownCollectionsSettings"
+                      [data]="allCollections"
+                      (onSelect)="onItemSelectCollection($event)"
+                      (onSelectAll)="onSelectAllCollection($event)"
+                      (onDeSelect)="DropDownCollectionClose($event)"
+                      (onDeSelectAll)="onDeSelectCollections($event)"
+                      formControlName="collectionId">
+                    </ng-multiselect-dropdown>
+                  </div>
+                  <div *ngIf="couponProductError" class="invalid-formdatas">
+                    Choose Category(Choose Product OR Choose Recipe OR Choose Collection) is required
+                  </div>
+                </div>
+              
+                <div class="form-group">
+                  <label for="exampleFormControlSelect2"  >Discount Type</label>
+                  <select class="form-control" id="exampleFormControlSelect2" name="discountType" formControlName="discountType" (change)="getDiscountType($event)">
+                    <option value="">Discount Type</option>
+                    <option value="Percent">Percent</option>
+                    <option value="Fixed">Fixed</option>
+                    <option value="Free Delivery">Free Delivery</option>
+                    <option value="BOGO" *ngIf="f['isGlobal'].value !=true">Buy 1 Get 1 Free</option>
+                  </select>
+                  <div *ngIf="submitted && f['discountType'].errors" class="invalid-formdata">
+                    Discount Type is required
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="couponDiscountValue">
+                  <input type="number" name="discountValue" min="0" formControlName="discountValue" class="form-control"  (input)="getDiscountValue($event)" placeholder="{{couponDiscountPlaceholder}} Discount Value">
+                  <div *ngIf="discountValueError" class="invalid-formdata">
+                    {{discountValueError}}
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="couponFreeProducts" >
+                  <label for="inputAddress">Choose Free Products </label>
+                  
+                  <ngx-autocomplete [searchKeyword]="'productDescriptionNew'" 
+                    (click)="checkValue()"
+                    (keyup)="checkValue()"
+                    [inputId]="'searchProduct'" 
+                    [placeholderValue]="'Search Products here by Product Name or Product ID'" 
+                    [entries]="allFreeProducts" 
+                    (selectedValue)="selectEvent($event)">
+                </ngx-autocomplete>
+                <p>{{freeProductName}}</p>
+                </div>
+                <div class="info-per-btn">
+                    <button type="submit" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage" >{{buttonTitle}}</button> 
+                    <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage"> 
+                </div>
+            </form>
+        </section>
+    </div>
+
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="hideFuntions(buttonTitle)">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to {{buttonTitle}} this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="hideFuntions(buttonTitle)">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

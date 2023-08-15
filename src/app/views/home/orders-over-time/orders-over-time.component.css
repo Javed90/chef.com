@@ -1,0 +1,13 @@
+.customers-header input {
+    max-width: 100%;
+}
+button.btn {
+    background: #253a4b;
+    color: #fff;
+}
+button.btn:hover {
+    color: #fff;
+}
+.user-list-table tr td,.user-list-table tr th{
+    text-align: left;
+}

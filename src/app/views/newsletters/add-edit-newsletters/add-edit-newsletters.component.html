@@ -1,0 +1,88 @@
+<div class="app-main__inner">
+
+    <div class="tab-content">
+ 
+             <div class="user-header">
+                <h3>Add New Newsletter</h3> 
+
+            </div>
+
+             <section class="address-info-form">
+                  <form enctype="multipart/form-data" [formGroup]="newsletterForm">
+                      <div class="imges-upload text-center">
+                          <p>Add NewsLetter Image</p>
+                          <div class="row">
+                              <image-cropper 
+                                [imageChangedEvent]="imageChangedEvent" 
+                                [maintainAspectRatio]="true" 
+                                [aspectRatio]="4 / 3"
+                                format="png" 
+                                (imageCropped)="imageCropped($event)" 
+                                (imageLoaded)="imageLoaded()"
+                                (cropperReady)="cropperReady()" 
+                                (loadImageFailed)="loadImageFailed()">
+                              </image-cropper>
+                          </div>
+                          
+                          <div class="imgUp m-auto">
+                              <div class="imagePreview"><img src="{{imagePath}}/{{showImages}}" *ngIf="showImages && !croppedImage"> <img src="{{croppedImage}}" *ngIf="showImages && croppedImage"> <img src="{{croppedImage}}" *ngIf="!showImages && croppedImage"></div>
+                              <label class="btn btn-primary">
+                                
+                                Upload<input type="file" name="image" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="fileChangeEvent($event)">
+                              </label>
+                            </div><!-- col-2 -->
+                            <div *ngIf="newsLettercroppedImage" class="invalid-formdata">
+                              Images is required
+                          </div>
+                          <div *ngIf="imagesLimitOrType" class="invalid-formdata">
+                            {{imagesLimitOrType}}
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail4">Title</label>
+                          <input type="text" class="form-control" formControlName="title" id="inputAddress" placeholder="Title">
+                          <div *ngIf="submitted && f['title'].errors" class="invalid-formdata">
+                            Newsletter title is required
+                          </div>
+                        </div>
+
+                         <div class="form-group">
+                          <label for="inputEmail4">Sub-Title</label>
+                          <input type="text" class="form-control" id="inputAddress" formControlName="subTtitle" placeholder="Sub-Title">
+                          <div *ngIf="submitted && f['subTtitle'].errors" class="invalid-formdata">
+                            Newsletter subtitle is required
+                          </div>
+                        </div>
+                        <angular-editor formControlName="newsletterContent" [config]="editorConfig"></angular-editor>
+                        <div *ngIf="submitted && f['newsletterContent'].errors" class="invalid-formdata">
+                          Newsletter content is required
+                        </div>
+                      
+                      <div class="info-per-btn">
+                        <button type="submit" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage">Save</button> 
+                        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                      </div>
+                    </form>
+            </section>
+    </div>
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to save this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

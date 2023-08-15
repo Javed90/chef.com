@@ -1,0 +1,10 @@
+input#defaultCheck1 {
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
+    width: auto;
+}
+
+label.form-check-label {
+    margin-top: 1px;
+}

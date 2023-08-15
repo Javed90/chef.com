@@ -1,0 +1,183 @@
+<div class="app-main__inner">
+
+    <div class="tab-content">
+ 
+             <div class="user-header">
+                <h3>Application Information </h3> 
+
+            </div>
+
+             <section class="address-info-form">
+                  <form [formGroup]="contactInfoForm">
+                    
+                      <div class="form-group">
+                        <label for="inputEmail4">Vat Percent</label>
+                        <input type="number" name="vatPercent" min="0" class="form-control" formControlName="vatPercent">
+                        <div *ngIf="submitted && f['vatPercent'].errors" class="invalid-formdata">
+                          Vat Percent is required
+                        </div>
+                        <div *ngIf="submitted && f['vatPercent'].hasError('whitespace')" class="invalid-formdata">
+                          Vat Percent Cannot contain only spaces
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail4">Delivery Charges</label>
+                        <input type="number" name="deliveryCharges" min="0" class="form-control" formControlName="deliveryCharges">
+                        <div *ngIf="submitted && f['deliveryCharges'].errors" class="invalid-formdata">
+                          Delivery Charges is required
+                        </div>
+                       
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail4">Delivery Limit</label>
+                        <input type="number" name="deliveryLimit" min="0" class="form-control" formControlName="deliveryLimit">
+                        <div *ngIf="submitted && f['deliveryLimit'].errors" class="invalid-formdata">
+                          Vat Percent is required
+                        </div>
+                      </div>
+                        <div class="form-group">
+                          <label for="inputEmail4">Phone Number</label>
+                          <input type="text" name="phone" class="form-control" formControlName="phone">
+                          <div *ngIf="submitted && f['phone'].errors" class="invalid-formdata">
+                                  Phone Number is required
+                          </div>
+                          <div *ngIf="submitted && f['phone'].hasError('whitespace')" class="invalid-formdata">
+                            Phone Number Cannot contain only spaces
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail4">Annoucement</label>
+                          <input type="text" name="annoucement" class="form-control" formControlName="annoucement">
+                          <div *ngIf="submitted && f['annoucement'].errors" class="invalid-formdata">
+                            Annoucement is required
+                        </div>
+                          <div *ngIf="submitted && f['annoucement'].hasError('whitespace')" class="invalid-formdata">
+                            Annoucement Cannot contain only spaces
+                          </div>
+                        </div>
+                       
+                        <div class="form-group">
+                          <label for="inputEmail4">Whatsapp Number</label>
+                          <input type="text" class="form-control" name="whatsAppNumber"  formControlName="whatsAppNumber" id="">
+                          <div *ngIf="submitted && f['whatsAppNumber'].errors" class="invalid-formdata">
+                            Whatsapp Number is required
+                          </div>
+                          <div *ngIf="submitted && f['whatsAppNumber'].hasError('whitespace')" class="invalid-formdata">
+                            Whatsapp Number Cannot contain only spaces
+                          </div>
+                        </div>
+
+                         <div class="form-group">
+                          <label for="inputEmail4">Instagram Profile</label>
+                          <input type="text" class="form-control" name="instaId" formControlName="instaId" id="">
+                          <div *ngIf="submitted && f['instaId'].errors" class="invalid-formdata">
+                            Instagram Profile is required
+                          </div>
+                          <div *ngIf="submitted && f['instaId'].hasError('whitespace')" class="invalid-formdata">
+                            Instagram Cannot contain only spaces
+                          </div>
+                        </div>
+
+                         <div class="form-group">
+                          <label for="inputEmail4">Email Address</label>
+                          <input type="email" class="form-control" name="email" formControlName="email" id="">
+                          <div *ngIf="submitted && f['email'].errors" class="invalid-formdata">
+                            Email Address is required
+                          </div>
+                          <div *ngIf="submitted && f['email'].hasError('whitespace')" class="invalid-formdata">
+                            Email Cannot contain only spaces
+                          </div>
+                        </div>
+
+                             <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Address</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="address"   formControlName="address" rows="3"></textarea>
+                                <div *ngIf="submitted && f['address'].errors" class="invalid-formdata">
+                                  Address is required
+                                </div>
+                                <div *ngIf="submitted && f['address'].hasError('whitespace')" class="invalid-formdata">
+                                  Address Cannot contain only spaces
+                                </div>
+                                </div>
+                                    <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Delivery Amount Note</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="deliveryAmountNote" formControlName="deliveryAmountNote" rows="3"></textarea>
+                                <div *ngIf="submitted && f['deliveryAmountNote'].errors" class="invalid-formdata">
+                                  Delivery Amount Note is required
+                                </div>
+                                <div *ngIf="submitted && f['deliveryAmountNote'].hasError('whitespace')" class="invalid-formdata">
+                                  Delivery Amount Note Cannot contain only spaces
+                                </div>
+                                </div>
+
+                                <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Vat Note</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="vatNote" formControlName="vatNote" rows="3"></textarea>
+                                <div *ngIf="submitted && f['vatNote'].errors" class="invalid-formdata">
+                                  Vat Note is required
+                                </div>
+                                <div *ngIf="submitted && f['vatNote'].hasError('whitespace')" class="invalid-formdata">
+                                  Vat Note Cannot contain only spaces
+                                </div>
+                                </div>
+                                <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Delivery Note</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="deliveryNote" formControlName="deliveryNote" rows="3"></textarea>
+                                <div *ngIf="submitted && f['deliveryNote'].errors" class="invalid-formdata">
+                                  Delivery Note is required
+                                </div>
+                                <div *ngIf="submitted && f['deliveryNote'].hasError('whitespace')" class="invalid-formdata">
+                                  Delivery Note Cannot contain only spaces
+                                </div>
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="inputEmail4">Profile ID</label>
+                              <input type="text" class="form-control" name="profileId" formControlName="profileId" id="">
+                              <div *ngIf="submitted && f['profileId'].errors" class="invalid-formdata">
+                                Profile ID is required
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail4">Server Key</label>
+                              <input type="text" class="form-control" name="serverKey" formControlName="serverKey" id="">
+                              <div *ngIf="submitted && f['serverKey'].errors" class="invalid-formdata">
+                                Server Key is required
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail4">Client Key</label>
+                              <input type="text" class="form-control" name="clientKey" formControlName="clientKey" id="">
+                              <div *ngIf="submitted && f['clientKey'].errors" class="invalid-formdata">
+                                Client Key is required
+                              </div>
+                            </div> -->
+                            
+                      <div class="info-per-btn">
+                        <button type="submit" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage" >Update</button> 
+                        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                        <!-- <a href="" class="cancel-btn">Cancel</a> -->
+                      </div>
+                    </form>
+            </section>
+    </div>
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to save this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

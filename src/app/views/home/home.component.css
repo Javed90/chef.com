@@ -1,0 +1,44 @@
+button.btn {
+    background: #253a4b;
+    color: #fff;
+}
+button.btn:hover {
+    color: #fff;
+}
+.user-list-table tr td,.user-list-table tr th{
+    text-align: left;
+}
+.user-list-table thead {
+    background-color: transparent !important;
+    border: navajowhite;
+    color: #212529;
+}
+.invalid-formdata.ng-star-inserted {
+    color: red;
+}
+.user-list-table tr th {
+    font-weight: bold;
+    font-size: 13px;
+    border: none;
+}
+.col-md-12.col-lg-6.serchbydate {
+    margin-bottom: 30px
+
+}
+.total-date-top .reset {
+    text-align: right;
+    width: 72%;
+    display: inline-block;
+    font-size: 14px;
+    color: #3267fc !important;
+    cursor: pointer;
+}
+.sales-by-product-piechart {
+    position: relative;
+}
+
+.sales-by-product-piechart p {
+    position: absolute;
+    top: 40%;
+    left: 35%;
+}

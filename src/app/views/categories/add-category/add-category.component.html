@@ -1,0 +1,108 @@
+<div class="app-main__inner">
+
+    <!-- <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+
+            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"><span>1</span>Category </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"><span>2</span>Sub Category</a>
+        </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"><span>3</span>Sub-Sub Category</a>
+        </li>
+         <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab"><span>4</span>Products</a>
+        </li>
+       
+    </ul> -->
+    <!-- Tab panes -->
+    <h3 class="cate-head">Edit Category</h3>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+        
+
+            <section class="address-info-form">
+                    
+                     <form [formGroup]="editCategoryForm" enctype="multipart/form-data">
+                        <div class="imges-upload text-center">
+                            <p>Add Category Picture</p>
+                            <div class="row">
+                                <image-cropper 
+                                  [imageChangedEvent]="imageChangedEvent" 
+                                  [maintainAspectRatio]="true" 
+                                  [aspectRatio]="4 / 3"
+                                  format="png" 
+                                  (imageCropped)="imageCropped($event)" 
+                                  (imageLoaded)="imageLoaded()"
+                                  (cropperReady)="cropperReady()" 
+                                  (loadImageFailed)="loadImageFailed()">
+                                </image-cropper>
+                            </div>
+                            
+                             <div class="imgUp m-auto">
+                                <div class="imagePreview"><img src="{{imagePath}}/{{showImages}}" *ngIf="showImages && !croppedImage"> <img src="{{croppedImage}}" *ngIf="showImages && croppedImage"> <img src="{{croppedImage}}" *ngIf="!showImages && croppedImage"></div>
+                                <label class="btn btn-primary">
+                                   <!-- Upload<input formControlName="categoryImage" name="categoryImage" type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="uploadImage($event)"> -->
+                                   Upload<input type="file"  formControlName="categoryImage" name="categoryImage" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="fileChangeEvent($event)">
+                                </label>
+                              </div><!-- col-2 -->
+                              <div *ngIf="categorycroppedImage" class="invalid-formdata">
+                                Images is required
+                             </div>
+                             <div *ngIf="imagesLimitOrType" class="invalid-formdata">
+                              {{imagesLimitOrType}}
+                            </div>
+                        </div>
+                      <div class="form-group">
+                        <label for="inputAddress">Category Name</label>
+                        <input type="text" name="categoryId" class="form-control" formControlName="categoryId" id="inputAddress" placeholder="Enter Category Name" readonly value="{{catName}}">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputAddress2">Category Description</label>
+                          <textarea class="form-control"
+                           id="exampleFormControlTextarea1" rows="3"
+                           name="categoryDescription"  
+                           formControlName="categoryDescription"  
+                           (input)= 'catDescription($event)'                              
+                           id="inputAddress" 
+                           >{{catDes}}</textarea>
+                           <div *ngIf="submitted && f['categoryDescription'].errors" class="invalid-formdata">
+                            Category Description is required
+                          </div>
+                      </div>
+                     
+                      <div class="info-per-btn">
+                        <button type="button" class="save-btn" (click)="openModal(template)" [disabled]="!isButton || isLoaderImage">Update</button> 
+                        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                        <!-- <a href="" class="cancel-btn">Cancel</a> -->
+                      </div>
+                    </form>
+                    </section>
+        </div>
+
+
+
+      
+    </div>
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to update this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="uploadImageWithCategoryName()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

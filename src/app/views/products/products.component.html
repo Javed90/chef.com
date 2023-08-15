@@ -1,0 +1,224 @@
+<div class="app-main__inner">
+    <!-- <div class="add-new-cus">
+         <a [routerLink]="['/products/add']">Add New</a>
+    </div> -->
+   <div class="user-header customers-header">
+        <h3>Products 
+      </h3> 
+    </div>
+    <div class="user-header customers-header choose-cate">
+        <div class="row">
+          <div class="col-md-2">
+            <div class="search-banner">
+              <label>Product Name</label>
+              <input type="text" id="" name="searchByProductName" placeholder="Product Name" class="form-control" (input)="productTypeSearch($event)" autocomplete="off">          
+            </div>
+            
+          </div>
+          <div class="col-md-3">
+            <label>Category</label>
+            <select id="" name="categoryId" class="form-control" (change)="selectCategoryEvent($event)">
+              <option selected="" value="">Choose Category</option>
+              <option *ngFor="let cat of categories" value="{{cat.categoryId}}" >{{cat.categoryId}}</option>
+            </select>
+            <div *ngIf="isErrorMessage" class="invalid-formdata">
+              {{isErrorMessage}}
+            </div>
+          </div>
+          <div class="col-md-3">
+            <label>Sub-Category</label>
+            <ng-multiselect-dropdown
+              [settings]="dropdownSubCategorySettings"
+              [data]="subCategoryNames"
+              (onSelect)="selectSubCategoryEvent($event)"
+              (onSelectAll)="onSelectAllSubCategory($event)"
+              (onDeSelect)="DropSubClose($event)"
+              (onDeSelectAll)="onDeSelectAllSubCategory($event)"
+              >
+            </ng-multiselect-dropdown>
+          </div>
+          <div class="col-md-3 pt-3">
+            <div class="form-check active-product">
+              
+              <input class="form-check-input" type="checkbox"  (click)="productsUpdateStatus($event,template)" value="" id="defaultCheckj" [(ngModel)]="isChecked">
+              <label class="form-check-label" for="defaultCheckj">
+               Select All Products
+              </label>
+            </div>
+          </div>
+          <!-- <div class="col-md-2">
+              <button type="submit" class="save-btn" (click)="productAddStatus($event)" [disabled]="!isSelectButton" >Save</button> 
+          </div> -->
+          <div class="col-md-1">
+            <div class=" demo">
+
+
+                <button type="button" class="btn btn-demo" data-toggle="modal" data-target="#myModal2" (click)="sortShowPopup()" >
+                    <i class="fa fa-list-ul" aria-hidden="true"></i>
+                </button>
+            </div>
+            <!-- Modal -->
+            <!-- <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" *ngIf="isSortShow"> -->
+              <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content sortcross">
+                            <a (click)="reset('reset')" class="reset-button">Reset</a>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <div class="modal-body">
+                           
+                            <div class="row">
+                              <div class="col">
+                                <div class="tabs">
+                                  
+                                <!--- first -->
+                                <div class="tab product-tab cat">
+                                    <input type="checkbox" id="chck3" class="check-in">
+                                    <label class="tab-label" for="chck3">Categories</label>
+                                    <div class="tab-content">
+                                        <div class="form-check" *ngFor="let cat of categories; let i = index">
+                                            <input class="form-check-input" type="checkbox" value="{{cat.categoryId}}" [checked]="isCategory == cat.categoryId ? 'checked' : false " (click)="selectedCategories(cat.categoryId,$event)" id="defaultChecka{{i+1}}">
+                                            <label class="form-check-label" for="defaultChecka{{i+1}}">
+                                              {{cat.categoryId}}
+                                            </label>
+                                          </div>
+                                          
+                                    </div>
+                                  </div>
+                                  <!-- Second -->
+                                  <div class="tab product-tab brand">
+                                    <input type="checkbox" id="chck1" class="check-in">
+                                    <label class="tab-label" for="chck1">Brand</label>
+                                    <div class="tab-content">
+                                        <div class="form-check" *ngFor="let brand of brands; let i = index;">
+                                            <input class="form-check-input" name="brand" type="checkbox"  value="{{brand.brand}}" (click)="selectedBrands(brand.brand,$event)" id="defaultCheckb{{i+1}}">
+                                            <label class="form-check-label" for="defaultCheckb{{i+1}}">
+                                              {{brand.brand}}
+                                            </label>
+                                          </div>
+                                          
+                                    </div>
+                                  </div>
+                                  <!-- Third -->
+                                  <div class="tab product-tab origin">
+                                    <input type="checkbox" id="chck2" class="check-in">
+                                    <label class="tab-label" for="chck2">Origin</label>
+                                    <div class="tab-content">
+                                        <div class="form-check" *ngFor="let origin of origin; let i = index">
+                                            <input class="form-check-input" name="origin" type="checkbox"  value="{{origin.origin}}" (click)="selectedOrigin(origin.origin,$event)" id="defaultCheckc{{i+1}}">
+                                            <label class="form-check-label" for="defaultCheckc{{i+1}}">
+                                              {{origin.origin}}
+                                            </label>
+                                          </div>                                          
+                                    </div>
+                                  </div>
+                                  
+                                  <!--- Four -->
+                                  <div class="tab product-tab status">
+                                    <input type="checkbox" id="chck4" class="check-in">
+                                    <label class="tab-label" for="chck4">Status</label>
+                                    <div class="tab-content">
+                                        <div class="form-check" *ngFor="let status of status; let i = index">
+                                            <input class="form-check-input" type="checkbox" value="{{status.status}}" (click)="selectedStatus(status.status,$event)" id="defaultChecke{{i+1}}">
+                                            <label class="form-check-label" for="defaultChecke{{i+1}}">
+                                              {{status.status}}
+                                            </label>
+                                          </div>
+                                          
+                                    </div>
+                                  </div>
+                                  <div class="info-per-btn">
+                                    <button type="submit" class="save-btn" (click)="submit($event)" >Apply</button> 
+                                  </div>
+                                </div>
+                              </div>
+                       
+                            </div>
+
+  
+                        </div>
+        
+                    </div><!-- modal-content -->
+                </div><!-- modal-dialog -->
+            </div><!-- modal -->
+            
+            
+    
+        
+        
+       
+        </div>
+        
+      </div>
+      <div class="user-list-table mb-4">
+        <table class="table ordered-list product-status">
+          <thead class="" style="background-color: #8eb73b;">
+            <tr>
+              <th scope="col">
+                <!-- <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              </div> -->
+              Select
+            </th>
+              <th scope="col">Product</th>
+              <th scope="col"> Status</th>
+              <th scope="col">Inventory</th>
+               <th scope="col">Category</th>
+              <!-- <th scope="col">Vendor</th> -->
+           
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of productListWithSearch | paginate: { itemsPerPage: 12, currentPage: p,
+              totalItems: total };  let i = index;">
+              <td>  
+                
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" [checked]="item.isProductActive"  (click)="productSingleStatus(item.productId,$event)" value="{{item.isProductActive}}" id="defaultCheckl1" >
+              </div>
+            </td>
+              <td> 
+                <span *ngIf="item.productImages[0]?.productDetailImagePath"><img src="{{imagePath}}/{{item.productImages[0].productDetailImagePath}}" class="added-images"></span>
+                <span *ngIf="!item.productImages[0]?.productDetailImagePath"><img src="assets/images/chefimage.png" class="added-images"></span> 
+                <a [routerLink]="['/products/',item.productId]" (click)="sendObject(item)" class="productlink">{{item.productDescription}}</a>
+              </td>
+              <td *ngIf="item.isProductActive"><span class="draft-pro">Active</span></td>
+              <td *ngIf="!item.isProductActive"><span class="draft-pro">Deactive</span></td>
+              <td *ngIf="item.availableQuantity == null">0 in stock</td>
+              <td *ngIf="item.availableQuantity">{{item.availableQuantity}} in stock</td>
+              <td>{{item.categoryId}}</td>
+                <!-- <td>{{item.categoryId}}</td> -->
+            </tr>
+            
+         
+
+          </tbody>
+        </table>
+
+    </div><!--user-list-table-->
+  
+  <div *ngIf="productListWithSearch == ''">
+    <p style="text-align: center;font-size:20px;padding-top: 10px">Record Not Found</p> 
+  </div>
+  <pagination-controls (pageChange)="p = $event" *ngIf="productListWithSearch != '' && total >= 10"></pagination-controls>
+  
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to change all products status?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="productAddStatus($event)">Ok</button>
+      <button type="button" class="btn cancel-btn" (click)="cancelStatus($event)">Cancel</button>
+    </div> 
+  </div>
+  
+</ng-template> 

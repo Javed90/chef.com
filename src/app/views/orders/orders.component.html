@@ -1,0 +1,314 @@
+<div class="app-main__inner">
+    <div class="user-header">
+        <!-- <h3>Received Orders  
+        <a (click)="exportAllOrders()" class="exportorder"><i class="fa fa-download" aria-hidden="true"></i> Export Orders</a>
+        </h3>  -->
+        <div class="row">
+          <div class="col-md-5">
+            <h3>Received Orders <a (click)="exportAllOrders()" class="exportorder"><i class="fa fa-download" aria-hidden="true"></i> Export Orders</a></h3>
+          </div>
+          <div class="col-md-7">
+             <form [formGroup]="searchDateTimeForm">
+              <div class="row">
+        
+                <div class="col-md-3">
+                  <!-- <label class="search-reset"> Filter By Date  -->
+                    <!-- <a (click)="reset('reset')">Reset</a> -->
+                  <!-- </label> -->
+                  <input type="text"
+                   placeholder="From Date"
+                   class="form-control"
+                   bsDatepicker
+                   #name
+                   name="fromDate"  
+                   formControlName="fromDate"  
+                   [bsConfig]="{ isAnimated: true }"
+                   name= "dateSearch"
+                   [ngModel]="dateSearch" 
+                   readonly
+                   >
+                   <div *ngIf="submitted && f['fromDate'].errors" class="invalid-formdata">
+                           Date is required
+                  </div>
+                   <!-- <input type="text"
+                    
+                   placeholder="January 01, 2022"
+                   class="form-control"
+                   (input)="searchDate($event)"> -->
+                </div>
+                <div class="col-md-3">
+                  <!-- <label class="search-reset"> Filter By Date  -->
+                    <!-- <a (click)="reset('reset')">Reset</a> -->
+                  <!-- </label> -->
+                  <input type="text"
+                   placeholder="To Date"
+                   class="form-control"
+                   bsDatepicker
+                   #name
+                   name="toDate"  
+                   formControlName="toDate"  
+                   [bsConfig]="{ isAnimated: true }"
+                   name= "dateSearch"
+                   [ngModel]="dateSearch" 
+                   readonly
+                   >
+                   <div *ngIf="submitted && f['toDate'].errors" class="invalid-formdata">
+                           Date is required
+                  </div>
+                   <!-- <input type="text"
+                    
+                   placeholder="January 01, 2022"
+                   class="form-control"
+                   (input)="searchDate($event)"> -->
+                </div>
+                <div class="col-md-3">
+                  <input [ngxTimepicker]="fromPicker"   name="fromTime"  
+                  formControlName="fromTime"   class="form-control" placeholder="Start Time">
+                  <ngx-material-timepicker #fromPicker></ngx-material-timepicker>
+                  <div *ngIf="submitted && f['fromTime'].errors" class="invalid-formdata">
+                          Start Time is required
+                </div>
+                </div>
+                <div class="col-md-2">
+                  <input [ngxTimepicker]="toPicker"   name="endTime"  
+                  formControlName="endTime"  class="form-control" placeholder="End Time">
+                  <ngx-material-timepicker #toPicker></ngx-material-timepicker>
+                  <div *ngIf="submitted && f['endTime'].errors" class="invalid-formdata">
+                            End Time is required
+                  </div>
+                </div>
+                <!-- <div class="col-md-3">
+                  <timepicker #name [ngModel]="mytime" (ngModelChange)="searchDate($event,'orderTime')" ></timepicker>
+                </div>
+                <div class="col-md-3">
+                  <timepicker #name [ngModel]="mytime" (ngModelChange)="searchDate($event,'orderTime')" ></timepicker>
+                </div> -->
+                <div class="col-md-1">
+                  <button type="submit" class="btn" (click)="searchTimeDateData($event)" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                 </div>
+              </div>
+             </form>
+          </div>
+        </div>
+       
+    </div>
+    <div class="user-header customers-header">
+      <div class="row">
+        
+        <!-- <div class="col-md-3">
+          <label class="search-reset"> Filter By Date  -->
+            <!-- <a (click)="reset('reset')">Reset</a> -->
+          <!-- </label>
+          <input type="text"
+           placeholder="Filter By Date"
+           class="form-control"
+           bsDatepicker
+           #name
+           [bsConfig]="{ isAnimated: true }"
+           name= "dateSearch"
+           [ngModel]="dateSearch" (ngModelChange)="searchDate($event,'requestedDate')"
+           readonly
+           > -->
+           
+           <!-- <input type="text"
+            
+           placeholder="January 01, 2022"
+           class="form-control"
+           (input)="searchDate($event)"> -->
+        <!-- </div> -->
+        <!-- <div class="col-md-2">
+          <label class="search-reset">From
+          </label> -->
+          <!-- <input type="time" min="1:00" max="12:00" id="appt" name="appt">
+          <input type="time" min="1:00" max="12:00" id="appt" name="appt"> -->
+          <!-- <timepicker #name [ngModel]="mytime" (ngModelChange)="searchDate($event,'orderTime')" ></timepicker>
+        </div> -->
+        <div class="col-md-3">
+          <div class="search-banner">
+            <label>Customer Name</label>
+            <input type="text" id="" name="searchByProductName" placeholder="John Doe" class="form-control" (input)="ordersSearch($event)" autocomplete="off">     
+          </div>
+          
+        </div>
+        <div class="col-md-3">
+          <div class="search-banner">
+            <label>City</label>
+            <input type="text" id="" name="searchByCity" placeholder="Dubai" class="form-control" (input)="citySearch($event)" autocomplete="off">     
+          </div>
+          
+        </div>
+        <div class="col-md-3">
+          <div class="search-banner">
+            <label>Order Status</label>
+            <!-- <input type="text" id="" name="searchBystatus" placeholder="Order Received" class="form-control" (input)="statusSearch($event)" autocomplete="off">      -->
+            <select id="" name="searchBystatus" class="form-control"  (change)="statusSearch($event)">
+              <option selected="" value="">Status</option>
+              <option  value="Dispatched">Dispatched</option> 
+              <option  value="Order received">Order received</option> 
+              <option  value="Cancelled">Cancelled</option> 
+            </select>
+          </div>
+          
+        </div>
+
+        <div class="col-md-3">
+          <div class="search-banner">
+            <label>Payment Status</label>
+            <!-- <input type="text" id="" name="searchBystatus" placeholder="Paid" class="form-control" (input)="paymentStatusSearch($event)">      -->
+            <select id="" name="searchByPayment" class="form-control"  (change)="paymentStatusSearch($event)">
+              <option selected="" value="">Status</option>
+              <option  value="PAID">Paid</option> 
+              <option  value="DELIVER">Unpaid</option> 
+            </select>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+    <div class="user-list-table">
+        <table class="table">
+          <thead class="" style="background-color: #8eb73b;">
+            <tr>
+              <th scope="col">Order ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">City</th>
+              <!-- <th scope="col">Location</th> -->
+               <th scope="col">Amount</th>
+              <th scope="col">Status Order</th>
+              <th scope="col">Ordered Items</th>
+              <th scope="col">Payment Status</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of orderSearch | paginate: { itemsPerPage: 10, currentPage: p,
+              totalItems: total };">
+              <td>{{item.salesOrderId}}</td>
+              <td>{{item.requestedDate | date:'MMM d, y, h:mm a' }}</td>
+              <td>{{item.customerName}}</td>
+              <td>{{item.deliverycity}}</td>
+              <!-- <td>{{item.deliveryAddress}} {{item.deliveryCountry}}</td> -->
+              <td><span *ngIf="item.amount">AED</span> {{item.amount | number : '1.2-2'}}</td>
+              <td>{{item.salesStatus}}</td>
+              <td>{{item.orderedItems}}</td>
+              <td *ngIf="item.paymentMode == 'ON DELIVER'">Unpaid</td>
+              <td *ngIf="item.paymentMode == 'PAID' || item.paymentMode == 'Paid'">Paid</td>
+              <td *ngIf="item.paymentMode != 'PAID' && item.paymentMode != 'ON DELIVER' && item.paymentMode !='Paid'">Unpaid</td>
+              <td>
+                <a class="eye-btn" data-toggle="modal" data-target="#exampleModalCenter" (click)="viewOrderProductsDetails(item)"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                <a (click)="exportSingleByOrdersId(item.salesOrderId)" class="exportorder single"><i class="fa fa-download" aria-hidden="true"></i></a>
+                <a data-toggle="modal" data-target="#emailconfirmation" (click)="emailInvoiceData(item)" ><i class="fa fa-envelope-o" aria-hidden="true"></i></a>
+                <!-- <a><i class="fa fa-file-text-o" aria-hidden="true"></i> </a> -->
+              </td>
+              <!-- <td>
+                 <a href="edit-users.html" class="edit-btn"><i class="fa fa-check" aria-hidden="true"></i></a>
+                <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </td> -->
+            </tr>
+          </tbody>
+        </table>
+    </div><!--user-list-table-->
+    <div>
+      <div *ngIf="orderSearch == ''">
+        <p style="text-align: center;font-size:20px;padding-top: 10px">Record Not Found</p> 
+      </div>
+      <pagination-controls (pageChange)="p = $event"  *ngIf="orderSearch != '' && total > 10"></pagination-controls>
+    </div>
+    
+    <!-- <div class="table-pagination">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-end">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+    </div> -->
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade ordered-items-btn" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Ordered Items</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="user-list-table">
+          <table class="table ordered-list">
+            
+            <tbody>
+              <tr *ngFor="let item of orderItems?.orderItems;">
+                <td class="order-num"><img src="{{item.productImage}}" class="added-images" *ngIf="item.productImage">
+                  <img src="https://cmenopcommerceimages.blob.core.windows.net/uat/B2C/34003/34003.png" class="added-images" *ngIf="!item.productImage || !item.productImage == null">
+                  <span>{{item.productQuantity}}</span></td>
+                <td>{{item.productTitle}}</td>
+                <td>AED {{item.salesPrice | number : '1.2-2'}} X {{item.productQuantity}}</td>
+                <td>AED {{item.salesPrice * item.productQuantity | number : '1.2-2'}}</td>
+              </tr>
+                
+            </tbody>
+          </table>
+
+          <div class="customer-add-items mt-4">
+              <h5>Customers</h5>
+              <!-- <p>{{orderItems?.customerName}}</p> -->
+              <table class="table">
+                <thead class="" style="background-color: #8eb73b;">
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Customer Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{{orderItems?.customerName}}</td>
+                    <td>{{orderItems?.customerEmail || 'NA'}}</td>
+                    <td>{{orderItems?.customerPhone || 'NA'}}</td>
+                    <td>{{orderItems?.customerType}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p><b>Total:</b> {{orderItems?.customerTotalOrders}} orders</p>
+          </div>
+
+      </div><!--user-list-table-->
+    </div>
+   
+    </div>
+  </div>
+</div>
+
+<div class="modal fade customer-delete-model" id="emailconfirmation" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to send email?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="emailInvoice()">Send Email</button>
+        <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

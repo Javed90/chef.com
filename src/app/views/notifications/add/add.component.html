@@ -1,0 +1,67 @@
+<div class="app-main__inner">
+
+    <div class="tab-content">
+ 
+             <div class="user-header">
+                <h3>Generate Notification</h3> 
+
+            </div>
+
+             <section class="address-info-form">
+                  <form [formGroup]="notificationForm">
+                    
+                   
+                        <div class="form-group">
+                          <label for="inputEmail4">Title</label>
+                          <input type="text" class="form-control" id=""
+                          formControlName="title" 
+                          placeholder="Title">
+                          <div *ngIf="submitted && f['title'].errors" class="invalid-formdata">
+                                Title is required
+                          </div>
+                          <div *ngIf="submitted && f['title'].hasError('whitespace') && f['title'].value" class="invalid-formdata">
+                            Title Cannot contain only spaces
+                          </div>
+                        </div>
+                         <div class="form-group">
+                          <label for="inputEmail4">Description</label>
+                         <textarea class="form-control" 
+                         id="exampleFormControlTextarea1"
+                         formControlName="description" 
+                         placeholder="Description"
+                         rows="3"></textarea>
+                         <div *ngIf="submitted && f['description'].errors" class="invalid-formdata">
+                          Description is required
+                        </div>
+                        <div *ngIf="submitted && f['description'].hasError('whitespace') && f['description'].value" class="invalid-formdata">
+                          Description Cannot contain only spaces
+                        </div>
+                        </div>
+                        <div class="info-per-btn">
+                          <button type="submit" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage" >Save</button> 
+                          <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                        </div>
+                    </form>
+            </section>
+    </div>
+
+</div>
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to save this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

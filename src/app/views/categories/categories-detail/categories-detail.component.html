@@ -1,0 +1,130 @@
+<div class="app-main__inner">
+    <div class="user-header customers-header">
+        <h3>Categories Details 
+         <!-- <form action="/action_page.php">
+          <label for="fname">From:</label>
+          <input type="text" id="fname" name="fname">
+          <label for="lname">To:</label>
+          <input type="text" id="lname" name="lname">
+        </form> -->
+        </h3> 
+    </div>
+    <!-- <div class="user-header customers-header">
+      <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-3">
+          <label>Search By Date</label>
+          <input type="text"
+           placeholder="January 01, 2022"
+           class="form-control"
+           (input)="searchDate($event)">
+        </div>
+        <div class="col-md-3">
+          <div class="search-banner">
+            <label>Search By sub-Category</label>
+            <input type="text" id="" name="searchByProductName" placeholder="Sub Category Name" class="form-control" (input)="subCategoryTypeSearch($event)">
+              
+          </div>
+          
+        </div>
+      </div>
+            
+    </div> -->
+    <div class="user-list-images">
+        <div class="row">
+          <div class="col-md-6">
+            <ul>
+              <li><b>Category Name:</b> {{catName}} </li>         
+            </ul>
+          </div>
+          
+        </div>
+      </div>
+    <div class="user-list-table">
+        <table class="table">
+          <thead class="" style="background-color: #8eb73b;">
+            <tr>
+              <th scope="col">S. No</th>
+              <th scope="col"> Date</th>
+              <th scope="col">Sub-Category Name</th>
+              <th scope="col">Sub-Category Image</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of subCategoryListWithSearch | paginate: { itemsPerPage: 10, currentPage: p,
+              totalItems: total } let i = index;">
+              <td>{{i + 1}}</td>
+              <td>{{item.subCategoryCreateDate | date:'longDate' }}</td>
+              <td>{{item.subCategoryId}}</td>
+              <td *ngIf="item.subCategoryImage"><img src="{{imagePath}}/{{item.subCategoryImage}}"></td>
+              <td *ngIf="!item.subCategoryImage"><img src="assets/images/chefimage.png"></td>
+              <td>
+                  <a (click)="getObjectSendUrl(item)" class="eye-btn" *ngIf="item.isSubSubCategory"> <i class="fa fa-eye" aria-hidden="true"></i></a>
+                 <a data-toggle="modal" data-target="#exampleModalCenter" class="edit-btn" (click)="getSubCatName(item)"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                </td>   
+            </tr>
+           
+     
+          </tbody>
+        </table>
+    </div><!--user-list-table-->
+    <div *ngIf="subCategoryListWithSearch == ''">
+      <p style="text-align: center;font-size:20px;padding-top: 10px">Record Not Found</p> 
+    </div>
+    <pagination-controls (pageChange)="p = $event" *ngIf="subCategoryListWithSearch == '' && total >=10"></pagination-controls>
+
+</div>
+<!-- Modal -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="inToShow">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Edit Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <div class="imges-upload text-center">
+                    <p>Add Sub Category Picture</p>
+                    <div class="row">
+                      <image-cropper 
+                        [imageChangedEvent]="imageChangedEvent" 
+                        [maintainAspectRatio]="true" 
+                        [aspectRatio]="4 / 4"
+                        format="png" 
+                        (imageCropped)="imageCropped($event)" 
+                        (imageLoaded)="imageLoaded()"
+                        (cropperReady)="cropperReady()" 
+                        (loadImageFailed)="loadImageFailed()">
+                      </image-cropper>
+                  </div>
+                    <div class="imgUp m-auto">
+                        <div class="imagePreview"><img src="{{imagePath}}/{{showImages}}" *ngIf="showImages && !croppedImage"> <img src="{{croppedImage}}" *ngIf="showImages && croppedImage"> <img src="{{croppedImage}}" *ngIf="!showImages && croppedImage"></div>
+                        <label class="btn btn-primary">
+                            Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="fileChangeEvent($event)">
+                        </label>
+                    </div><!-- col-2 -->
+                    <div *ngIf="categorycroppedImage" class="invalid-formdata">
+                      Images is required
+                   </div>
+                </div>
+            <form>
+                <div class="form-group">
+                <label for="inputEmail4">Sub Category Name</label>
+                <input type="text" class="form-control" id="" readonly value="{{subcatname}}" placeholder="Enter Sub Category Name">
+                </div>
+                                                
+                <div class="info-per-btn">
+                  <button type="button" class="save-btn" (click)="uploadImageWithCategoryName($event)" [disabled]="isLoaderImage">Update</button>
+                  <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                </div>
+            </form>
+        </div>
+        
+      </div>
+    </div>
+  </div>

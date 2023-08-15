@@ -1,0 +1,21 @@
+.modal-backdrop.fade.show {
+    opacity: 0;
+    z-index: -1;
+}
+a.edit-btn {
+    cursor: pointer;
+}
+button.save-btn:disabled {
+    background-color: #bcbcbd;
+    border: none;
+}
+.customers-header input {
+    max-width: 100%;
+}
+.invalid-formdata.ng-star-inserted {
+    color: red;
+}
+.user-list-table tr td img {
+    width: 100%;
+    max-width: 50px;
+}

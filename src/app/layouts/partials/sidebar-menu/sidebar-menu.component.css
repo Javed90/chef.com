@@ -1,0 +1,7 @@
+.vertical-nav-menu {
+    overflow: auto;
+    height: 520px;
+}
+.vertical-nav-menu ul{
+	padding-bottom: 30px;
+}

@@ -1,0 +1,65 @@
+
+                
+    <div class="app-main__inner">
+        
+        <div class="user-header customers-header">
+            <h3>Collection Detail 
+             <form action="/action_page.php">
+             <div class="add-new-cus">
+             <!-- <a [routerLink]="['/collections/edit',collectionData?.collectionId]" >Edit Detail</a> -->
+        </div>
+            </form>
+            </h3> 
+        </div>
+
+                <div class="user-list-images">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <ul>
+                        <li><b>Date:</b> {{collectionData?.createDate | date:'longDate'}}</li>
+                        
+                      
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <ul>
+                        <li><b>Collection Name:</b> {{collectionData?.collectionName}}</li>
+                     
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                 <div class="user-list-images">
+                  <h5 class="mb-4">Collection images</h5>
+                  <div class="row">
+                      <div class="col-md-12">
+                            <!-- <span *ngFor="let image of collectionData?.collectionDetailImage; let i = index;">
+                                <div class="col-md-4 mt-2">
+                                    <div class="collection-detail-img" >
+                                       <img src="{{imagePath}}/{{image.collectionImage}}">
+                                     </div>
+                                </div>
+                            </span> -->
+                              <div class="collection-detail-img" >
+                                 <img src="{{imagePath}}/{{collectionData?.collectionImage}}">
+                               </div>
+
+                      </div>
+                    
+                     <!-- <div class="col-md-3">
+                     <div class="collection-detail-img">
+                        <img src="assets/images/recipe2.jpg">
+                      </div>
+                    </div> -->
+                  </div>
+                  <!-- <div class="row mt-4">
+                    <div class="col-md-6">
+                      <div class="collection-detail-img">
+                        <img src="assets/images/recipe4.jpg">
+                      </div>
+                    </div>
+                  </div> -->
+                </div>
+
+    </div>

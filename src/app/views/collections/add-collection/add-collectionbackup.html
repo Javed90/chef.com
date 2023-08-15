@@ -1,0 +1,174 @@
+<div class="app-main__inner">
+                        
+    <div class="user-header customers-header">
+        <h3>{{title}}
+         
+        </h3> 
+    </div>
+
+           <section class="address-info-form">
+            
+             <form [formGroup]="collectionForm">
+             
+            <div class="imges-upload text-center">
+                <p>Upload Collection Images</p>
+                <div class="row" *ngIf="collectionID">
+                  <div class="col-md-4 mb-4" *ngFor="let image of editImages">
+                    <div class="collection-recipe-banner">
+                      <img src="{{imagePath}}/{{image.collectionDetailImagePath}}">
+                      <div class="fileContainer sprite">
+                        <span><i class="fa fa-pencil" aria-hidden="true"></i></span>
+                        <input type="file"  value="Choose File" (change)="singleImageUpdate($event,image)">
+                        <!-- <input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="singleImageUpdate($event,image)"> -->
+                      </div>
+                      <i class="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target="#exampleModalCenter" (click)="getDeleteID(image)"></i>
+                    </div>
+                  </div>
+                  
+              </div>
+              <div class="row" *ngIf="baseSixtyFourImage">
+                <div class="col-md-4 mb-4" *ngFor="let image of baseSixtyFourImage">
+                  <div class="collection-recipe-banner">
+                    <img src="{{image}}">
+                  </div>
+                </div>
+              </div>
+                 <div class="imgUp m-auto">
+                    <div class="imagePreview" *ngIf="!collectionID && !showImages"></div>
+                    <label class="btn btn-primary">
+                       Upload<input type="file" multiple formControlName="collectionImage" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="uploadImage($event)">
+                    </label>
+                  </div><!-- col-2 -->
+                  <div *ngIf="submitted && f['collectionImage'].errors" class="invalid-formdata">
+                          Images is required
+                  </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-5" *ngIf="!collectionNew">
+                <label for="inputAddress">Collection Type</label>
+                <select id="" name="collectionType" class="form-control"  formControlName="collectionType" (change)="changeCollectionType($event)">
+                  <option selected="" value="">Choose Collection Type</option>
+                  <option  *ngFor="let item of collections; let i = index; "value="{{item.collectionType}}">{{item.collectionType}}</option> 
+                </select>
+               
+              </div>
+              <div class="col-md-1 m-auto" *ngIf="collectionOr">
+                <div class="devider-class">
+                  <span>Or</span>
+                </div>
+              </div>
+              <div class="form-group col-md-5" *ngIf="!collectionType">
+                <label for="inputEmail4">Add New Collection Type</label>
+                <input type="text" name="newCollectionType" class="form-control" formControlName="newCollectionType" placeholder="New Collection" (input)="newCollectionType($event)" >
+                
+            </div>
+            <div *ngIf="collectionError" class="invalid-formdata">
+                  Collection Type OR Collection Name is required
+          </div>
+            </div>
+              
+
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                   <!-- <label for="inputAddress">Choose Category</label>
+                   <ngx-autocomplete [searchKeyword]="'categoryId'" 
+                    [inputId]="'searchCategory'" 
+                    [placeholderValue]="'Search Categories'" 
+                    [entries]="catIds" 
+                    (selectedValue)="selectCategoryEvent($event)">
+                   </ngx-autocomplete> -->
+                   <label for="inputAddress">Choose Category</label>
+                   <ng-multiselect-dropdown
+                    [settings]="dropdownCategorySettings"
+                    [data]="allCategories"
+                    (onSelect)="selectCategoryEvent($event)"
+                    (onSelectAll)="onSelectAllCategory($event)"
+                    (onDeSelect)="DropDownClose($event)"
+                    formControlName="categoryId"
+                    >
+                  </ng-multiselect-dropdown>
+                   <!-- <select id="" name="categoryId" class="form-control" formControlName="categoryId" (change)="selectCategoryEvent($event)">
+                    <option selected="" value="">Choose Category</option>
+                    <option *ngFor="let cat of allCategories" value="{{cat.categoryId}}">{{cat.categoryId}}</option>
+                  </select>
+                  <div *ngIf="submitted && f['categoryId'].errors" class="invalid-formdata">
+                      Category is required
+                  </div> -->
+                </div>
+              <div class="form-group col-md-{{classProduct}}" *ngIf="!collectionChooseRecipe">
+                <label for="inputAddress">Choose Product</label>
+                <!-- <ngx-autocomplete [searchKeyword]="'productDescription'" 
+                    [inputId]="'searchProduct'" 
+                    [placeholderValue]="'Search Products'" 
+                    [entries]="productsName" 
+                    (selectedValue)="selectEvent($event)">
+                </ngx-autocomplete> -->
+                <ng-multiselect-dropdown
+                  [settings]="dropdownSettings"
+                  [data]="serchProducts"
+                  (onSelect)="onItemSelect($event)"
+                  (onSelectAll)="onSelectAllProducts($event)"
+                  formControlName="productId">
+                </ng-multiselect-dropdown>
+              </div>
+
+              <div class="col-md-1 m-auto" *ngIf="collectionProductOr">
+                <div class="devider-class">
+                  <span>Or</span>
+                </div>
+              </div>
+
+              <div class="form-group col-md-{{classProduct}}" *ngIf="!collectionChooseProduct">
+                <label for="inputAddress">Choose Recipes</label>
+                <!-- <ngx-autocomplete [searchKeyword]="'productDescription'" 
+                    [inputId]="'searchProduct'" 
+                    [placeholderValue]="'Search Products'" 
+                    [entries]="productsName" 
+                    (selectedValue)="selectEvent($event)">
+                </ngx-autocomplete> -->
+                <ng-multiselect-dropdown
+                  [settings]="dropdownRecipeSettings"
+                  [data]="allRecipes"
+                  (onSelect)="onItemSelectRecipe($event)"
+                  (onSelectAll)="onSelectAllRecipe($event)"
+                  formControlName="recipeId">
+                </ng-multiselect-dropdown>
+              </div>
+
+              <div *ngIf="collectionProductError" class="invalid-formdata">
+                Choose Category(Choose Product OR Choose Recipe) is required
+              </div>
+            </div>
+
+              <div class="info-per-btn">
+                <button type="submit" class="save-btn" (click)="submit($event)" >Save</button> 
+                <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+              </div>
+            </form>
+            </section>
+           
+        
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to delete this Image?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="deleteSingleImage()">Delete</button>
+        <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

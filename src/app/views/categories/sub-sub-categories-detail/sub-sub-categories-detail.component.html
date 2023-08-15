@@ -1,0 +1,157 @@
+<div class="app-main__inner">
+    
+    <div class="user-header customers-header">
+        <h3>Sub Sub-Categories Detail
+            <!-- <form action="/action_page.php">
+            <label for="fname">From:</label>
+            <input type="text" id="fname" name="fname">
+            <label for="lname">To:</label>
+            <input type="text" id="lname" name="lname">
+        </form> -->
+        </h3> 
+    </div>
+
+            <div class="user-list-images">
+                <div class="row">
+                <div class="col-md-6">
+                    <ul>
+                    <li><b>Category Name:</b> {{categoryName}} </li>
+                    <li><b>Sub Category Name:</b> {{subCatName}}</li>
+                    
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul>
+                    <li><b>Sub Sub-Category Name:</b> {{subSubCategory}}</li>
+                    
+                    </ul>
+                </div>
+                </div>
+            </div>
+
+    <section class="products-main address-info-form">
+    <div class="user-header customers-header">
+        <h3>Product Detail
+            <form action="/action_page.php">
+            <div class="add-new-cus">
+            <!-- <a href="">Add New Product</a> -->
+    </div>
+        </form>
+        </h3> 
+    </div>
+    <div class="row">
+        <div class="col-md-3" *ngFor="let item of getCategoriesProductList">
+            <div class="product-inner">
+                <span *ngIf="!item.productImage"><img src="assets/images/product-1.png"></span>
+                <span *ngIf="item.productImage"><img src="{{imagePath}}/{{item.productImage}}"></span>
+                <h5>{{item.productDescription}}</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED {{item.agreementValue}}</h3>
+            </div>
+        </div>
+            <!-- <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-2.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+            <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-3.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+            <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-4.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+        </div>
+    <div class="row mt-4 mb-4">
+        <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-1.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+            <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-2.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+            <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-3.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div>
+            <div class="col-md-3">
+            <div class="product-inner">
+                <span><img src="assets/images/product-4.png"></span>
+                <h5>Fully Baked Ciabatta -<br> 12 x 45</h5>
+                <p><i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star text-dark" aria-hidden="true"></i>
+                </p>
+                <h3>AED 68.00</h3>
+            </div>
+        </div> -->
+            
+        </div>
+    
+    </section>
+
+</div>
+
+

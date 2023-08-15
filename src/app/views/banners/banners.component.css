@@ -1,0 +1,13 @@
+.search-banner {
+    width: 50%;
+    float: right;
+}
+
+.user-header .search-banner select.form-control {
+    background-color: #fff !important;
+    color: gray;
+}
+.user-list-table tr td img {
+    width: 100%;
+    max-width: 50px;
+}

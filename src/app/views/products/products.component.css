@@ -1,0 +1,70 @@
+.customers-header input {
+    max-width: 100%;
+}
+.product-inner label.form-check-label {
+    color: #253a4b;
+}
+.product-inner .form-check {
+    padding-top: 5px;
+}
+.modal-content.sortcross button.close {
+    text-align: right;
+    padding: 5px 10px;
+}
+#main #faq .card .card-header .btn-header-link:after {
+    content: "\276F";
+    font-weight: 900;
+    float: right;
+    transform: rotate(
+  90deg);
+  font-size: 12px;
+  }
+  #main #faq .card .card-header .btn-header-link.collapsed:after {
+    content: "\276F";
+    transform: rotate(0deg);
+    font-size: 12px;
+  }
+  
+  #main #faq .card .card-header .btn-header-link {
+      width: 100%;
+      text-align: inherit;
+  }
+/* .user-header.customers-header .active-product.form-check {
+    float: right;
+    display: inline;
+}
+
+.user-header.customers-header .active-product.form-check input {margin-top: 9px;} */
+.form-group {
+    position: relative;
+}
+.invalid-formdatas{
+    color: red;
+}
+.invalid-formdata {
+    position: absolute;
+    bottom: 0px;
+    right: 0;
+    background-color: red;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 0px 5px;
+}
+table.table.ordered-list.product-status tr td:nth-child(2) {
+    text-align: left !important;
+}
+.user-list-table tr td a.productlink {
+    color: #007bff !important;
+    font-size: 14px;
+}
+div#faq .card-header {
+    padding: 0px;
+    height: auto;
+    margin-bottom: 10px;
+}
+div#faq .card-header a {
+    font-size: 14px;
+}
+.search-banner {
+    margin-bottom: 10px;
+}

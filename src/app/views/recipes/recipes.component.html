@@ -1,0 +1,70 @@
+<div class="app-main__inner">
+    <div class="user-header">
+        <h3>My Recipes  <a [routerLink]="['/recipes/add']" [state]="{ breadcrumbs:true , text:'recipes'}">Add New Recipe</a></h3> 
+
+    </div>
+    <div class="user-header customers-header">
+        <div class="row">
+          <div class="col-md-6">
+  
+          </div>
+          <div class="col-md-6">
+            <div class="search-banner">
+              <label>Recipe Name</label>
+              <input type="text" id="" name="searchByRecipeName" placeholder="Recipe Name" class="form-control" (input)="recipeTypeSearch($event)"  autocomplete="off">
+                
+            </div>
+            
+          </div>
+        </div>
+              
+      </div>
+
+    <div class="recipes-main">
+        <div class="row mb-4">
+            <div class="col-md-6" *ngFor="let item of recipeListWithSearch | paginate: { itemsPerPage: 12, currentPage: p,
+                totalItems: total };  let i = index;">
+                <div class="recipes-inner">
+                    <img src="assets/images/recipe1.jpg" *ngIf="!item.recipeImage">
+                    <img src="{{imagePath}}/{{item.recipeImage}}" *ngIf="item.recipeImage">
+                    <div class="recipes-text">
+                        <h3> {{item.recipeTitle}} <span><i class="fa fa-trash-o" aria-hidden="true"  data-toggle="modal" data-target="#deleteRecipe" (click)="deleteRecipeWithID(item.recipeId)"></i></span></h3>
+                        <h5> {{item.recipeDate | date:'longDate'}} </h5>
+                        <p>{{item.recipeDescription | slice:0:80 }}..</p>
+                        <a [routerLink]="['/recipes/',item.recipeId]">Continue Reading <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+             
+        </div>
+           
+          
+
+    </div>
+    <div *ngIf="recipeListWithSearch == ''">
+      <p style="text-align: center;font-size:20px;padding-top: 10px">Record Not Found</p> 
+    </div>
+    <pagination-controls (pageChange)="p = $event" *ngIf="recipeListWithSearch != '' && total >=10"></pagination-controls>
+
+</div>
+ <!-- Delete Notifications -->
+ <div class="modal fade customer-delete-model" id="deleteRecipe" tabindex="-1" role="dialog" aria-labelledby="deleteRecipe" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteRecipe">Delete Recipe</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to delete this Recipe?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="deleteData()">Delete</button>
+        <button type="button" class="btn  cancel-btn"  data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1001 @@
+
+<div class="app-main__inner">
+    <!-- <div class="app-page-title">
+        <div class="page-title-wrapper">
+            <div class="page-title-heading">
+                <div class="page-title-icon">
+                    <i class="pe-7s-car icon-gradient bg-mean-fruit">
+                    </i>
+                </div>
+                <div>Analytics Dashboard
+                    <div class="page-title-subheading">This is an example dashboard created using build-in elements and components.
+                    </div>
+                </div>
+            </div>
+            <div class="page-title-actions">
+                <button type="button" data-toggle="tooltip" title="Example Tooltip" data-placement="bottom" class="btn-shadow mr-3 btn btn-dark">
+                    <i class="fa fa-star"></i>
+                </button>
+                <div class="d-inline-block dropdown">
+                    <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow dropdown-toggle btn btn-info">
+                        <span class="btn-icon-wrapper pr-2 opacity-7">
+                            <i class="fa fa-business-time fa-w-20"></i>
+                        </span>
+                        Buttons
+                    </button>
+                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon lnr-inbox"></i>
+                                    <span>
+                                        Inbox
+                                    </span>
+                                    <div class="ml-auto badge badge-pill badge-secondary">86</div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon lnr-book"></i>
+                                    <span>
+                                        Book
+                                    </span>
+                                    <div class="ml-auto badge badge-pill badge-danger">5</div>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void(0);" class="nav-link">
+                                    <i class="nav-link-icon lnr-picture"></i>
+                                    <span>
+                                        Picture
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a disabled href="javascript:void(0);" class="nav-link disabled">
+                                    <i class="nav-link-icon lnr-file-empty"></i>
+                                    <span>
+                                        File Disabled
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>           -->
+   <div class="row">
+    <div class="col-md-12 col-lg-6 serchbydate">
+        <div class="total-date-top">
+            <h3>Date  <a (click)="reset('reset')" class="reset">Reset</a></h3>
+               
+        </div>
+        <form [formGroup]="dashBoardForm">
+            <div class="row">
+                <div class="col-md-5">
+                  <input type="text" class="form-control"
+                  placeholder="From Date"
+                  #name
+                  name="fromDate"  
+                  formControlName="fromDate"                                  
+                  id="datepicker" 
+                  bsDatepicker
+                  [maxDate]="maxDate"
+                  autocomplete="off"
+                  [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                  
+                  (ngModelChange)="getMinDate($event)"
+                  readonly>
+                  <div *ngIf="submitted && f['fromDate'].errors" class="invalid-formdata">
+                          From Date is required
+                  </div>
+                </div>
+                
+                <div class="col-md-5">
+                  <input type="text" class="form-control"
+                  placeholder="To Date"
+                  name="toDate"
+                  formControlName="toDate"                                   
+                  id="datepicker" 
+                  #name2
+                  bsDatepicker
+                  autocomplete="off"
+                  [minDate]="minDateFromMaxdate"
+                  
+                  [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                  readonly>
+                  <div *ngIf="submitted && f['toDate'].errors" class="invalid-formdata">
+                          To Date is required
+                  </div>
+                </div>
+                <div class="col-md-2">
+                 <button type="submit" class="btn" (click)="submit($event)" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                
+                </div>
+            </div>
+        </form>
+    </div>
+   </div>
+    <div class="row">
+        
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Sales Over Time</h3>
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Sales YTD
+                    </div>
+                    <ul class="nav">
+                        <!-- <li>Monthly</li> -->
+                    </ul>
+                </div>
+                <div class="price-monthly">
+               <div class="row">
+                <div class="col-md-6">
+                    <h3 *ngIf="!saleOverTimeData?.totalAmount"></h3>
+                    <h3 *ngIf="saleOverTimeData?.totalAmount">AED {{saleOverTimeData?.totalAmount | number}}</h3>
+                </div>
+                <div class="col-md-6 text-right" *ngIf="saleOverTimeData?.totalOrders == 1">
+                    <p>{{saleOverTimeData?.totalOrders}} Order</p>
+                </div>
+                <div class="col-md-6 text-right" *ngIf="saleOverTimeData?.totalOrders > 1">
+                    <p>{{saleOverTimeData?.totalOrders}} Orders</p>
+                </div>
+               </div>
+               </div>
+
+               <!-- <div class="total-sales">
+                   <p><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <!-- <canvas id="canvas"></canvas> -->
+                                        <canvas baseChart 
+                                            [datasets]="barChartData"
+                                            [labels]="barChartLabels"
+                                            [options]="barChartOptions"
+                                            [plugins]="barChartPlugins"
+                                            [legend]="barChartLegend"
+                                            [type]="barChartType">
+                                        </canvas>
+                                        <p *ngIf="!saleOverTimeData?.totalOrders && barChartType == 'bar'">Record Not Found</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="view-report-btn text-right"> -->
+                                <!-- <a href="">View Report</a> -->
+
+                                <!-- Button trigger modal -->
+                            <!-- <a class="btn" [routerLink]="['/sales-over-Time']">
+                                View Report
+                            </a>
+                                </div> -->
+
+                            <div class="total-sales-break">
+                                    <ul>
+                                        <!-- <li>Total Sales Breakdawn <span>Monthly</span></li> -->
+                                        <li>Orders <span>{{saleOverTimeData?.totalOrders}}</span></li>
+                                        <!-- <li>Returns <span>AED 533.45</span></li> -->
+                                        <li class="total-sales-footer">Total Sales <span>AED {{saleOverTimeData?.totalAmount | number}}</span></li>
+                                    </ul>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Sales by Product</h3>
+                <!-- <form [formGroup]="dashBoardForm2">
+                    <div class="row">
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="From Date"
+                          name="fromDate"  
+                          formControlName="fromDate"                                  
+                          id="datepicker" 
+                          bsDatepicker
+                          [maxDate]="minDate"
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted2 && s['fromDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="To Date"
+                          name="toDate"
+                          formControlName="toDate"                                   
+                          id="datepicker" 
+                          bsDatepicker
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted2 && s['toDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                         <button type="submit" class="btn" (click)="submit2($event)" [disabled]="isLoaderImage" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                         <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                        </div>
+                    </div>
+                </form> -->
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Top 10 Products by sales    
+                    </div>
+                    <ul class="nav">
+                        <li><a  [routerLink]="['/sales-by-products']" class="pro-detail" (click)="sendObject($event)">View Report</a></li>
+                    </ul>
+                </div>
+              
+
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Over Time</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                            [datasets]="barChartData2"
+                                            [options]="pieChartOptions"
+                                            [plugins]="pieChartPlugins"
+                                            [legend]="barChartLegend"
+                                            [type]="barChartType2"
+                                            [labels]="barChartLabels2">
+                                        </canvas>
+                                        <p *ngIf="salesByProdData.length == 0">Record Not Found</p>
+                                    <!-- <div class="user-list-table">
+                                        <table class="table ordered-dash">
+                                          
+                                          <tbody>
+                                            <tr *ngFor="let item of salesByProdData">
+                                              <td>{{item.productName}}</td>
+                                              <td>{{item.netQuantity}}</td>
+                                              <td>{{item.grossSales}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+            
+            
+                                    </div> -->
+                                    <!--user-list-table-->
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Sales by Discount Code</h3>
+                <!-- <form [formGroup]="dashBoardForm3">
+                    <div class="row">
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="From Date"
+                          name="fromDate"  
+                          formControlName="fromDate"                                  
+                          id="datepicker" 
+                          bsDatepicker
+                          [maxDate]="minDate"
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted3 && d['fromDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="To Date"
+                          name="toDate"
+                          formControlName="toDate"                                   
+                          id="datepicker" 
+                          bsDatepicker
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted3 && d['toDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                         <button type="submit" class="btn" (click)="submit3($event)" [disabled]="isLoaderImage1"><i class="fa fa-search" aria-hidden="true"></i></button> 
+                         <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage1">
+                        </div>
+                    </div>
+                </form> -->
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                      Top 10 discount code applied
+                    </div>
+                    <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/sales-by-discount']" (click)="sendObjectForDiscount($event)" >View Report</a></li>
+                    </ul>
+                </div>
+              
+
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                        <!-- <canvas baseChart 
+                                        [datasets]="barChartData3"
+                                        [labels]="barChartLabels3"
+                                        [options]="barChartOptions"
+                                        [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [type]="barChartType">
+                                    </canvas> -->
+                                    <div class="user-list-table">
+                                        <table class="table ordered-dash">
+                                            <thead>
+                                                <tr>
+                                                  <th scope="col">Coupon Name</th>
+                                                  <th scope="col"> Orders</th>
+                                                  <th scope="col">Discount</th>
+                                                  <th scope="col">Total Sales</th>
+                                                   <!-- <th scope="col">Category</th> -->
+                                                  <!-- <th scope="col">Vendor</th> -->
+                                               
+                                                </tr>
+                                              </thead>
+                                          <tbody>
+                                            <tr *ngFor="let item of salesByDisData">
+                                              <td>{{item.name}}</td>
+                                              <td>{{item.orders}}</td>
+                                              <td *ngIf="item.discount">AED {{item.discount | number : '1.2-2'}}</td>
+                                              <td *ngIf="!item.discount">0</td>
+                                              <td *ngIf="item.totalSales"> AED {{item.totalSales | number : '1.2-2'}}</td>
+                                              <td *ngIf="!item.totalSales">0</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                        <div *ngIf="salesByDisData.length == 0">
+                                            <p style="text-align: center;font-size:20px;padding-top: 10px">Record Not Found</p> 
+                                        </div>
+            
+                                    </div><!--user-list-table-->
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Customers Growth</h3>
+                <!-- <form [formGroup]="dashBoardForm4">
+                    <div class="row">
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="From Date"
+                          name="fromDate"  
+                          formControlName="fromDate"                                  
+                          id="datepicker" 
+                          bsDatepicker
+                          [maxDate]="minDate"
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted4 && c['fromDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="To Date"
+                          name="toDate"
+                          formControlName="toDate"                                   
+                          id="datepicker" 
+                          bsDatepicker
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted4 && c['toDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                         <button type="submit" class="btn" (click)="submit4($event)" [disabled]="isLoaderImage2" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                         <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage2">
+                        </div>
+                    </div>
+                </form> -->
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                    Customers Growth YTD
+                    </div>
+                    <ul class="nav">
+                        <li><a [routerLink]="['/customer-over-time']" class="pro-detail" (click)="sendObject($event)">View Report</a></li>
+                    </ul>
+                </div> 
+                
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                        [datasets]="barChartData4"
+                                        [labels]="barChartLabels4"
+                                        [options]="barChartOptions"
+                                        [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [type]="barChartType4">
+                                    </canvas>
+                                    <p *ngIf="!custOverTimeData?.summaryTotalCustomer && barChartType4 == 'bar'">Record Not Found</p>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Orders over time</h3>
+              <div class="row">
+                  <div class="col-md-6">
+                    <select id="inputState" class="form-control">
+                        <option selected>From Date</option>
+                        <option>...</option>
+                      </select>
+                  </div>
+                  <div class="col-md-6">
+                    <select id="inputState" class="form-control">
+                        <option selected>To Date</option>
+                        <option>...</option>
+                      </select>
+                  </div>
+              </div>
+                   
+            </div>
+            <div class="mb-3 card">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                       Total Orders
+                    </div>
+                    <ul class="nav">
+                        <li><a href="" class="pro-detail">View Report</a></li>
+                    </ul>
+                </div>
+              
+
+                <div class="price-monthly">
+                    <div class="row">
+                     <div class="col-md-6">
+                         <h3>31</h3>
+                     </div>
+                     <div class="col-md-6 text-right">
+                         <p>121 oredrs</p>
+                     </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                        <canvas id="canvas"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Orders Over Time</h3>
+                <!-- <form [formGroup]="dashBoardForm5">
+                    <div class="row">
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="From Date"
+                          name="fromDate"  
+                          formControlName="fromDate"                                  
+                          id="datepicker" 
+                          bsDatepicker
+                          [maxDate]="minDate"
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted5 && o['fromDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="To Date"
+                          name="toDate"
+                          formControlName="toDate"                                   
+                          id="datepicker" 
+                          bsDatepicker
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted5 && o['toDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                         <button type="submit" class="btn" (click)="submit5($event)" [disabled]="isLoaderImage5" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                         <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage5">
+                        </div>
+                    </div>
+                </form> -->
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                     Orders YTD
+                    </div>
+                    <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/orders-over-time']" (click)="sendObjectForOrder($event)" >View Report</a></li>
+                    </ul>
+                </div>
+              
+                <div class="price-monthly">
+                    <div class="row">
+                     <div class="col-md-6">
+                         <h4>Total Orders</h4>
+                         <p>{{ordersOTimeData?.summaryTotalOrders}}</p>
+                     </div>
+                     
+                    </div>
+                    </div>
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                        [datasets]="barChartData3"
+                                        [labels]="barChartLabels3"
+                                        [options]="barChartOptions"
+                                        [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [type]="barChartType3">
+                                    </canvas>
+                                    <p *ngIf="!ordersOTimeData?.summaryTotalOrders && barChartType3 == 'bar'">Record Not Found</p>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="total-date-top">
+                <h3>Orders Average Value</h3>
+                <!-- <form [formGroup]="dashBoardForm6">
+                    <div class="row">
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="From Date"
+                          name="fromDate"  
+                          formControlName="fromDate"                                  
+                          id="datepicker" 
+                          bsDatepicker
+                          [maxDate]="minDate"
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted6 && a['fromDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-5">
+                          <input type="text" class="form-control"
+                          placeholder="To Date"
+                          name="toDate"
+                          formControlName="toDate"                                   
+                          id="datepicker" 
+                          bsDatepicker
+                          autocomplete="off"
+                          [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+                          readonly>
+                          <div *ngIf="submitted6 && a['toDate'].errors" class="invalid-formdata">
+                                  Title is required
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                         <button type="submit" class="btn" (click)="submit6($event)" [disabled]="isLoaderImage4" ><i class="fa fa-search" aria-hidden="true"></i></button> 
+                         <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage4">
+                        </div>
+                    </div>
+                </form> -->
+                   
+            </div>
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Orders Average Value YTD
+                    </div>
+                    <ul class="nav">
+                        <li><a [routerLink]="['/average-order-value']" class="pro-detail" (click)="sendObjectForAvg($event)">View Report</a></li>
+                    </ul>
+                </div> 
+                <div class="price-monthly">
+                    <div class="row">
+                     <div class="col-md-6">
+                         <h3 *ngIf="averageOVData?.summaryAverageOrderValue"> AED {{averageOVData?.summaryAverageOrderValue | number : '1.2-2' }}</h3>
+                         <h3 *ngIf="!averageOVData?.summaryAverageOrderValue"></h3>
+                     </div>
+                     
+                    </div>
+                    </div>
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                        [datasets]="barChartData5"
+                                        [labels]="barChartLabels5"
+                                        [options]="barChartOptions"
+                                        [plugins]="barChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [type]="barChartType5">
+                                    </canvas>
+                                    <p *ngIf="!averageOVData?.summaryAverageOrderValue && barChartType5 == 'bar'">Record Not Found</p>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <!-- <div class="total-date-top">
+                <h3>Customer By Revenue</h3>
+            </div> -->
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Top 10 Customers by revenue
+                    </div>
+                    <!-- <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/sales-by-discount']" (click)="sendObjectForDiscount($event)" >View Detail</a></li>
+                    </ul> -->
+                </div>
+              
+
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                            [datasets]="barChartData6"
+                                            [labels]="barChartLabels6"
+                                            [options]="radarChartOptions"
+                                            [plugins]="barChartPlugins"
+                                            [legend]="barChartLegend"
+                                            [type]="barChartType6">
+                                        </canvas>
+                                        <p *ngIf="customerBRData.length == 0">Record Not Found</p>
+                                    <!-- <div class="user-list-table">
+                                        <table class="table ordered-dash">
+                                            <thead>
+                                                <tr> -->
+                                                  <!-- <th scope="col">User ID</th> -->
+                                                  <!-- <th scope="col"> Customers Name</th>
+                                                  <th scope="col">Total Orders</th>
+                                                  <th scope="col">Total Amounts</th> -->
+                                                   <!-- <th scope="col">Category</th> -->
+                                                  <!-- <th scope="col">Vendor</th> -->
+                                               
+                                                <!-- </tr>
+                                              </thead>
+                                          <tbody>
+                                            <tr *ngFor="let item of customerBRData"> -->
+                                              <!-- <td>{{item.userId}}</td> -->
+                                              <!--<td>{{item.customerName}}</td>
+                                              <td>{{item.totalOrders}}</td>
+                                              <td>{{item.totalAmount | number : '1.2-2' }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+            
+            
+                                    </div> -->
+                                    <!--user-list-table-->
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <!-- <div class="total-date-top">
+                <h3>Customer By Revenue</h3>
+            </div> -->
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Top 10 Brands by revenue
+                    </div>
+                    <!-- <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/sales-by-discount']" (click)="sendObjectForDiscount($event)" >View Detail</a></li>
+                    </ul> -->
+                </div>
+              
+
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100 sales-by-product-piechart">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                        <canvas baseChart 
+                                            [datasets]="barChartData7"
+                                            [labels]="barChartLabels7"
+                                            [options]="barChartOptions"
+                                            [plugins]="barChartPlugins"
+                                            [legend]="barChartLegend"
+                                            [type]="barChartType7">
+                                        </canvas>
+                                    <p *ngIf="brandsBRData.length == 0">Record Not Found</p>
+                                    <!-- <div class="user-list-table">
+                                        <table class="table ordered-dash">
+                                            <thead>
+                                                <tr> -->
+                                                  <!-- <th scope="col">User ID</th> -->
+                                                  <!-- <th scope="col">Brand</th>
+                                                  <th scope="col">Total Orders</th>
+                                                  <th scope="col">Total Amounts</th> -->
+                                                   <!-- <th scope="col">Category</th> -->
+                                                  <!-- <th scope="col">Vendor</th> -->
+                                               
+                                                <!-- </tr>
+                                              </thead>
+                                          <tbody>
+                                            <tr *ngFor="let item of brandsBRData"> -->
+                                              <!-- <td>{{item.userId}}</td> -->
+                                              <!-- <td>{{item.brand}}</td>
+                                              <td>{{item.totalOrders}}</td>
+                                              <td>{{item.totalAmount | number : '1.2-2' }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+            
+            
+                                    </div> -->
+                                    <!--user-list-table-->
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-6">
+            <!-- <div class="total-date-top">
+                <h3>Customer By Revenue</h3>
+            </div> -->
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        Top Categories by revenue
+                    </div>
+                    <!-- <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/sales-by-discount']" (click)="sendObjectForDiscount($event)" >View Detail</a></li>
+                    </ul> -->
+                </div>
+              
+
+               <!-- <div class="total-sales">
+                   <p class="mt-3"><span>Total Sales Overtime</span></p>
+               </div> -->
+
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0">
+                                        <canvas baseChart 
+                                            [datasets]="barChartData8"
+                                            [labels]="barChartLabels8"
+                                            [options]="barChartOptions"
+                                            [plugins]="barChartPlugins"
+                                            [legend]="barChartLegend"
+                                            [type]="barChartType8">
+                                        </canvas>
+                                    <!-- <div class="user-list-table">
+                                        <table class="table ordered-dash">
+                                            <thead>
+                                                <tr> -->
+                                                  <!-- <th scope="col">User ID</th> -->
+                                                  <!-- <th scope="col"> Category Name</th>
+                                                  <th scope="col">Total Orders</th>
+                                                  <th scope="col">Total Amounts</th> -->
+                                                   <!-- <th scope="col">Category</th> -->
+                                                  <!-- <th scope="col">Vendor</th> -->
+                                               
+                                                <!-- </tr>
+                                              </thead>
+                                          <tbody>
+                                            <tr *ngFor="let item of categoriesBRData"> -->
+                                              <!-- <td>{{item.userId}}</td> -->
+                                              <!-- <td>{{item.category}}</td>
+                                              <td>{{item.totalOrders}}</td>
+                                              <td>{{item.totalAmount | number : '1.2-2' }}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+            
+            
+                                    </div> -->
+                                    <!--user-list-table-->
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <!-- <div class="total-date-top">
+                <h3>Orders</h3>
+            </div> -->
+            <div class="mb-3 card customcharts">
+                <div class="card-header-tab card-header-tab-animation card-header">
+                    <div class="card-header-title">
+                        users Count
+                    </div>
+                    <!-- <ul class="nav">
+                        <li><a  class="pro-detail" [routerLink]="['/sales-by-discount']" (click)="sendObjectForDiscount($event)" >View Detail</a></li>
+                    </ul> -->
+                </div>
+             
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="tabs-eg-77">
+                            <div class="card mb-3 widget-chart widget-chart2 text-left w-100">
+                                <div class="widget-chat-wrapper-outer">
+                                    <div class="widget-chart-wrapper widget-chart-wrapper-lg opacity-10 m-0 sales-by-product-piechart">
+                                        <canvas baseChart 
+                                        [datasets]="barChartData9"
+                                        [labels]="barChartLabels9"
+                                        [options]="pieChartOptions"
+                                        [plugins]="pieChartPlugins"
+                                        [legend]="barChartLegend"
+                                        [type]="barChartType9">
+                                    </canvas>
+                                    <p *ngIf="barChartData9[0].data[0] == null">Record Not Found</p>
+                                    </div>
+                                </div>
+                            </div>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+    <!-- <div class="ordered-item-div">
+        <div class="row"> -->
+            <!-- <canvas baseChart 
+                [datasets]="barChartData6"
+                [labels]="barChartLabels6"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [type]="barChartType6">
+            </canvas> -->
+            <!-- <div class="col-md-2">
+                <select id="inputState" class="form-control">
+                    <option selected>To Date</option>
+                    <option>...</option>
+                  </select>
+            </div> -->
+            <!-- <div class="col-md-5">
+                <div class="ordered-item-order">
+                    <h5>Orders</h5>
+                    <p>{{saleOverTimeData?.totalOrders}}</p>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="ordered-item-order">
+                    <h5>Ordered items</h5>
+                    <p>{{saleOverTimeData?.totalItems}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+   
+</div>

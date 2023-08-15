@@ -1,0 +1,42 @@
+.invalid-formdata {
+    color: red;
+}
+.collection-recipe-banner img {
+    width: 100%;
+    height: 225px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.collection-recipe-banner {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.collection-recipe-banner i {
+    position: absolute;
+    top: -6px;
+    background-color: #23b412;
+    border-radius: 25px;
+    color: #ffff;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    right: -10px;
+    cursor: pointer;
+}
+.collection-recipe-banner .fa-trash-o {
+    background-color: #b70505;
+    right: 27px;
+}
+.address-info-form{
+    overflow: inherit;
+}
+.collection-recipe-banner.collections i.fa.fa-trash-o {
+    right: 0;
+}
+.save-btn {
+    text-transform: capitalize;
+}

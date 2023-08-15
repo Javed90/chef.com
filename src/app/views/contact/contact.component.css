@@ -1,0 +1,13 @@
+.form-group {
+    position: relative;
+}
+
+.invalid-formdata.ng-star-inserted {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: red;
+    color: #fff;
+    padding: 0px 6px;
+    font-size: 12px;
+}

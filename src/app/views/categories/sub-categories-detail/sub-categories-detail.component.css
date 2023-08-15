@@ -1,0 +1,7 @@
+a.edit-btn {
+    cursor: pointer;
+}
+button.save-btn:disabled {
+    background-color: #bcbcbd;
+    border: none;
+}

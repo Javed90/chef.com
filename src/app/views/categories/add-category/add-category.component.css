@@ -1,0 +1,9 @@
+button.save-btn:disabled {
+    background-color: #bcbcbd;
+    border: none;
+}
+
+.save-btn {border: none;}
+.invalid-formdata.ng-star-inserted {
+    color: red;
+}

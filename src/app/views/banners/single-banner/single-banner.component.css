@@ -1,0 +1,8 @@
+.user-list-images ul li img {
+    width: 100%;
+    height: 250px;
+    display: inline-block;
+}
+.col-md-4 {
+    float: left;
+}

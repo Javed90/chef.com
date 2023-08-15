@@ -1,0 +1,43 @@
+.customers-header input {
+    max-width: 100%;
+}
+.invalid-formdata {
+    color: red;
+}
+.exportorder {
+    cursor: pointer;
+}
+a.exportorder.single {
+    color: #253a4b !important;
+}
+.user-list-table tr td a .fa {
+    color: #253a4b;
+}
+.user-list-table tr td a{
+    padding: 5px;
+    cursor: pointer;
+}
+.user-list-table tr td a.eye-btn {
+    background: transparent;
+}
+.search-banner select {
+    background: #fff !important;
+    color: inherit;
+}
+.user-list-table tr th {
+    font-size: 12px;
+}
+.user-list-table tr td {
+    font-size: 12px;
+}
+.col-md-2{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+button.btn {
+    background: #253a4b;
+    color: #fff;
+}
+button.btn:hover {
+    color: #fff;
+}

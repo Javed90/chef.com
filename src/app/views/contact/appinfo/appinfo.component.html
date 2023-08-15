@@ -1,0 +1,74 @@
+<div class="app-main__inner">
+
+    <div class="tab-content">
+ 
+             <div class="user-header">
+                <h3>Application Information </h3> 
+
+            </div>
+
+             <section class="address-info-form">
+                  <form [formGroup]="contactInfoForm">
+                    
+                     
+                            <div class="form-group">
+                              <label for="inputEmail4">Profile ID</label>
+                              <input type="text" class="form-control" name="profileId" formControlName="profileId" id="">
+                              <div *ngIf="submitted && f['profileId'].errors" class="invalid-formdata">
+                                Profile ID is required
+                              </div>
+                              <div *ngIf="submitted && f['profileId'].hasError('whitespace')" class="invalid-formdata">
+                                Profile ID Cannot contain only spaces
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail4">Server Key</label>
+                              <input type="text" class="form-control" name="serverKey" formControlName="serverKey" id="">
+                              <div *ngIf="submitted && f['serverKey'].errors" class="invalid-formdata">
+                                Server Key is required
+                              </div>
+                              <div *ngIf="submitted && f['serverKey'].hasError('whitespace')" class="invalid-formdata">
+                                Server Key Cannot contain only spaces
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="inputEmail4">Client Key</label>
+                              <input type="text" class="form-control" name="clientKey" formControlName="clientKey" id="">
+                              <div *ngIf="submitted && f['clientKey'].errors" class="invalid-formdata">
+                                Client Key is required
+                              </div>
+                              <div *ngIf="submitted && f['clientKey'].hasError('whitespace')" class="invalid-formdata">
+                                Client Key Cannot contain only spaces
+                              </div>
+                            </div>
+                      <div class="info-per-btn">
+                        <button type="button" class="save-btn" data-toggle="modal" data-target="#exampleModalCenter" [disabled]="isLoaderImage" >Update</button> 
+                        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                        <!-- <a href="" class="cancel-btn">Cancel</a> -->
+                      </div>
+                    </form>
+            </section>
+    </div>
+
+        </div>
+<!-- Modal -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">App Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to change the Application Information?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit($event)" >Save</button>
+        <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,826 @@
+<div class="app-main__inner">
+                       
+  <div class="user-header customers-header">
+      <h3>{{title}}
+       
+      </h3> 
+  </div>
+      <form [formGroup]="recipeForm">
+         <section class="address-info-form">
+          <div class="imges-upload text-center">
+              <p>Upload Recipe Picture</p>
+              <div class="row">
+                  <image-cropper 
+                    [imageChangedEvent]="imageChangedEvent" 
+                    [maintainAspectRatio]="true" 
+                    [aspectRatio]="4 / 3"
+                    format="png" 
+                    (imageCropped)="imageCropped($event)" 
+                    (imageLoaded)="imageLoaded()"
+                    (cropperReady)="cropperReady()" 
+                    (loadImageFailed)="loadImageFailed()">
+                  </image-cropper>
+              </div>
+              <div class="row" *ngIf="recipeID">
+                  <div class="col-md-4 mb-4" *ngFor="let image of images">
+                    <div class="collection-recipe-banner collections">
+                      <img src="{{imagePath}}/{{image.recipeDetailImagePath}}">
+                      <!-- <i class="fa fa-pencil" aria-hidden="true"><input type="file" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="singleImageUpdate($event,image)"></i> -->
+                      <i class="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target="#exampleModalCenter3" (click)="getDeleteID(image)"></i>
+                    </div>
+                  </div>
+                  
+              </div>
+              <div class="row" *ngIf="baseSixtyFourImage">
+                <div class="col-md-4 mb-4" *ngFor="let image of baseSixtyFourImage">
+                  <div class="collection-recipe-banner collections">
+                    <img src="{{image}}">
+                    <i class="fa fa-trash-o" aria-hidden="true"  (click)="deleteBasesixty(image)"></i>
+                  </div>
+                </div>
+              </div>
+              
+               <div class="imgUp m-auto">
+                  <div class="imagePreview">  <img [src]="croppedImage" *ngIf="croppedImage" /> </div>
+                  <label class="btn btn-primary">
+                     <!-- Upload<input type="file" multiple  class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="uploadImage($event)"> -->
+                     Upload<input type="file"   name="recipeImage" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="fileChangeEvent($event)">
+                  </label>
+                </div><!-- col-2 -->
+                <div class="form-group customerrorimage">
+                  <div *ngIf="recipeImageShowError" class="invalid-formdata">
+                    Image is required
+                  </div>
+                  <div *ngIf="imagesLimitOrType" class="invalid-formdata">
+                    {{imagesLimitOrType}}
+                  </div>
+                </div>
+                
+          </div>
+          <div class="recipe-radio-btn">
+            <div class="row">
+              <div class="form-check-inline col-md-12">
+                <label for="inputAddress">Recipe Difficulty Level</label>
+              </div>
+              
+            <div class="form-check-inline col-md-3">
+                <label class="form-check-label">
+                  <input type="radio" id="1" class="form-check-input" name="difficultyLevel" formControlName="difficultyLevel"  value="1">Easy
+                </label>
+              </div>
+              <div class="form-check-inline col-md-3">
+                <label class="form-check-label">
+                  <input type="radio" id="2" class="form-check-input" name="difficultyLevel" formControlName="difficultyLevel" value="2">Normal
+                </label>
+              </div>
+              <div class="form-check-inline col-md-3">
+                <label class="form-check-label">
+                  <input type="radio"  id="3" class="form-check-input" name="difficultyLevel" formControlName="difficultyLevel" value="3">Hard
+                </label>
+              </div>
+          </div>
+        </div>
+        <div class="form-group customerrordifficulty">
+        <div *ngIf="submitted && f['difficultyLevel'].errors" class="invalid-formdata">
+          Difficulty Level is required
+        </div>
+        </div>
+
+
+
+            <div class="form-group">
+              <label for="inputAddress">Recipe Name</label>
+              <input type="text" 
+              class="form-control"
+              placeholder="Recipe Name"
+              formControlName="recipeTitle"
+              name="recipeTitle"                                   
+              id="inputAddress" 
+              [ngClass]="{'ng-invalid ng-touched': submitted && f['recipeTitle'].errors }">
+              <div *ngIf="submitted && f['recipeTitle'].errors" class="invalid-formdata">
+                  Recipe Name is required
+              </div>
+              <div *ngIf="submitted && f['recipeTitle'].hasError('whitespace') && f['recipeTitle'].value" class="invalid-formdata">
+                Recipe Name Cannot contain only spaces
+              </div>
+              <div *ngIf="submitted && f['recipeTitle'].errors?.['maxlength']" class="invalid-formdata">
+                Recipe Name cannot exceed 80 characters.
+              </div>
+            </div>
+            
+           
+            <div class="form-group">
+              <label for="inputAddress2">Recipe Description</label>
+                <textarea class="form-control" formControlName="recipeDescription"
+                 id="exampleFormControlTextarea1" rows="3"
+                 name="recipeDescription" 
+                 placeholder="Recipe Description"                                  
+                 id="inputAddress" 
+                 [ngClass]="{'ng-invalid ng-touched': submitted && f['recipeDescription'].errors }" 
+                 ></textarea>
+                 <div *ngIf="submitted && f['recipeDescription'].errors" class="invalid-formdata">
+                      Recipe Description is required
+                </div>
+                <div *ngIf="submitted && f['recipeDescription'].hasError('whitespace') && f['recipeDescription'].value" class="invalid-formdata">
+                  Recipe Description Cannot contain only spaces
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress2">Key Ingredients</label>
+                <textarea class="form-control" formControlName="keyIngredients"
+                id="exampleFormControlTextarea1" rows="3"
+                placeholder="Key Ingredients"
+                name="keyIngredients"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['keyIngredients'].errors }" 
+                ></textarea>
+                <div *ngIf="submitted && f['keyIngredients'].errors" class="invalid-formdata">
+                  Key Ingredients is required
+               </div>
+               <div *ngIf="submitted && f['keyIngredients'].hasError('whitespace')  && f['keyIngredients'].value" class="invalid-formdata">
+                Key Ingredients Cannot contain only spaces
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress2">Top Tips From Our Chef</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="topTips"
+                id="exampleFormControlTextarea1" rows="3"
+                name="topTips"
+                placeholder="Top tips from our chef"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['topTips'].errors }" 
+                ></textarea>
+                <div *ngIf="submitted && f['topTips'].errors" class="invalid-formdata">
+                  Top tips from our chef is required
+               </div>
+               <div *ngIf="submitted && f['topTips'].hasError('whitespace')  && f['topTips'].value" class="invalid-formdata">
+                Top tips Cannot contain only spaces
+              </div>
+            </div>
+         
+          </section>
+
+        <section class="address-info-form">
+         
+            <div class="form-group">
+              <label for="inputAddress">Date</label>
+              <input type="text" class="form-control"
+              formControlName="recipeDate"
+              placeholder="Date"
+              name="recipeDate"                                   
+              id="datepicker" 
+              bsDatepicker
+              
+              autocomplete="off"
+              [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }"
+              readonly
+              [ngClass]="{'ng-invalid ng-touched': submitted && f['recipeDate'].errors }">
+              <div *ngIf="submitted && f['recipeDate'].errors" class="invalid-formdata">
+                  Recipe Date is required
+            </div>
+            </div>
+
+             <h4>Additional Information</h4>
+
+             <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Category</label><input type="checkbox" formControlName="categoryShow"  id="3" class="form-check-input showhide" (click)="showHideAdditionalInfromations($event,'Category')">
+                <input type="text" class="form-control"
+                formControlName="category"
+                placeholder="Category"
+                name="category"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['category'].errors }" *ngIf="isCategory">
+                <div *ngIf="submitted && f['category'].errors" class="invalid-formdata">
+                    Recipe category is required
+               </div>
+               <div *ngIf="submitted && f['category'].hasError('whitespace') && f['category'].value " class="invalid-formdata">
+                Category Cannot contain only spaces
+              </div>
+              <div *ngIf="submitted && f['category'].errors?.['maxlength']" class="invalid-formdata">
+                Category Name cannot exceed 50 characters.
+              </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Servings</label><input type="checkbox" formControlName="servingShow"  id="3" class="form-check-input showhide" (click)="showHideAdditionalInfromations($event,'Serving')" >
+               
+                <div class="form-row">  
+                  <input type="number"  class="form-control col-md-10 pl-2"
+                formControlName="serving"
+                placeholder="Servings"
+                name="serving"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['serving'].errors }" *ngIf="isServings">
+                <div class="col-md-2" *ngIf="isServings">
+                  <span class="min">
+                    Unit
+                  </span>
+                  </div>
+                 </div>
+                <div *ngIf="submitted && f['serving'].errors" class="invalid-formdata">
+                    Recipe serving is required
+                </div>
+                <div *ngIf="submitted && f['serving'].hasError('whitespace') && f['serving'].value " class="invalid-formdata">
+                  Recipe serving Cannot contain only spaces
+                </div>
+                <div *ngIf="submitted && f['serving'].errors?.['maxlength']" class="invalid-formdata">
+                  Recipe serving  cannot exceed 20 characters.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="inputEmail4">Prep Time</label>
+                <!-- <input type="checkbox" formControlName="preparetimeShow"  id="3" class="form-check-input showhide" (click)="showHideAdditionalInfromations($event,'Prep Time')"> -->
+               <div class="form-row">  
+                <input type="number"  class="form-control col-md-10 pl-2"
+                formControlName="preparetime"
+                placeholder="Prep Time"
+                name="preparetime"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['preparetime'].errors }" *ngIf="isPrepTime">
+                <div class="col-md-2">
+                <span class="min">
+                  Minutes
+                </span>
+                </div>
+               </div>
+                
+                <div *ngIf="submitted && f['preparetime'].errors" class="invalid-formdata">
+                  Prep Time is required
+                </div>
+                <div *ngIf="submitted && f['preparetime'].hasError('whitespace') && f['preparetime'].value" class="invalid-formdata">
+                  Prep Time Cannot contain only spaces
+                </div>
+                <div *ngIf="submitted && f['preparetime'].errors?.['maxlength']" class="invalid-formdata">
+                  Prep Time   cannot exceed 20 characters.
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="inputPassword4">Cook Time</label> <input type="checkbox" formControlName="cookingTimeShow"  id="3" class="form-check-input showhide" (click)="showHideAdditionalInfromations($event,'Cook Time')">
+                <div class="form-row">  
+                  <input type="number"  class="form-control col-md-10 pl-2"
+                formControlName="cookingTime"
+                placeholder="Cook Time"
+                name="cookingTime"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['cookingTime'].errors }" *ngIf="isCookTime">
+                <div class="col-md-2" *ngIf="isCookTime">
+                  <span class="min">
+                    Minutes
+                  </span>
+                  </div>
+                 </div>
+                <div *ngIf="submitted && f['cookingTime'].errors" class="invalid-formdata">
+                  Cook Time is required
+                </div>
+                <div *ngIf="submitted && f['cookingTime'].hasError('whitespace') && f['cookingTime'].value" class="invalid-formdata">
+                  Cook Time Cannot contain only spaces
+                </div>
+                <div *ngIf="submitted && f['cookingTime'].errors?.['maxlength']" class="invalid-formdata">
+                  Cook Time cannot exceed 20 characters.
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAddress2">Calories</label>  <input type="checkbox" formControlName="caloriesTimeShow"  id="3" class="form-check-input showhide" (click)="showHideAdditionalInfromations($event,'Calories')">
+                <input type="text"  class="form-control"
+                formControlName="calories"
+                placeholder="Calories"
+                name="calories"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['calories'].errors }" *ngIf="isCalories">
+                <div *ngIf="submitted && f['calories'].errors" class="invalid-formdata">
+                  Calories is required
+                </div>
+                <div *ngIf="submitted && f['calories'].hasError('whitespace') && f['calories'].value" class="invalid-formdata">
+                  Calories Cannot contain only spaces
+                </div>
+                <div *ngIf="submitted && f['calories'].errors?.['maxlength']" class="invalid-formdata">
+                  Calories cannot exceed 50 characters.
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="inputAddress2">Other Information</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1"  formControlName="otherInformation"
+                id="exampleFormControlTextarea1" rows="3"
+                name="otherInformation"
+                placeholder="Other Information"                                   
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['otherInformation'].errors }" 
+                ></textarea>
+                <div *ngIf="submitted && f['otherInformation'].errors" class="invalid-formdata">
+                  Other Information is required
+               </div>
+               <div *ngIf="submitted && f['otherInformation'].hasError('whitespace') && f['otherInformation'].value" class="invalid-formdata">
+                Other Information Cannot contain only spaces
+              </div>
+            </div>
+        </section>
+        <section class="address-info-form">
+
+           <div class="form-group">
+             <label for="inputAddress">Author Name</label>
+             <input type="text"  class="form-control"
+              formControlName="authorName"
+              placeholder="Author Name"
+              name="authorName"                                   
+              id="inputAddress" 
+              [ngClass]="{'ng-invalid ng-touched': submitted && f['authorName'].errors }">
+              <div *ngIf="submitted && f['authorName'].errors" class="invalid-formdata">
+                Author Name is required
+              </div>
+              <div *ngIf="submitted && f['authorName'].hasError('whitespace') && f['authorName'].value" class="invalid-formdata">
+                Author Name Cannot contain only spaces
+              </div>
+              <div *ngIf="submitted && f['authorName'].errors?.['maxlength']" class="invalid-formdata">
+                Author Name cannot exceed 50 characters.
+              </div>
+           </div>
+
+          
+           <div class="form-group">
+             <label for="inputAddress2">Paste Youtube Recipe Video ID</label>
+               <textarea class="form-control" id="exampleFormControlTextarea1"   formControlName="videoUrl"
+               id="exampleFormControlTextarea1" rows="3"
+               name="videoUrl"  
+               placeholder="Paste Youtube Recipe Video ID"                                 
+               id="inputAddress" 
+               [ngClass]="{'ng-invalid ng-touched': submitted && f['videoUrl'].errors }" 
+               ></textarea>
+               <div *ngIf="submitted && f['videoUrl'].errors" class="invalid-formdata">
+                Youtube Recipe Video ID is required
+              </div>
+              <div *ngIf="submitted && f['videoUrl'].hasError('whitespace')  && f['videoUrl'].value" class="invalid-formdata">
+                Youtube Recipe Video ID Cannot contain only spaces
+              </div>
+              <div *ngIf="submitted && f['videoUrl'].errors?.['maxlength']" class="invalid-formdata">
+                Youtube Recipe Video ID cannot exceed 50 characters.
+              </div>
+           </div>
+
+            <h4>Ingredients</h4>
+
+            <div class="form-row">
+            <!-- Ingredient To show-->
+             <div class="form-group col-md-12">
+               <label for="inputEmail4">Ingredients To Show</label>
+                <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""></textarea> -->
+                <table class="table ingredient">
+                  <thead class="" style="background-color: #741717;color: #fff;text-align: center;">
+                    <tr>
+                      <th scope="col">Product Name</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col">Unit</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of ingredients; let i = index;">
+                      <td>{{item.ingredientName}}</td>
+                      <td>{{item.quantity}}</td>
+                      <td>{{item.unit}}</td>
+                      <td>
+                        <a href="" data-toggle="modal" data-target="#exampleModalCenter" (click)="getSingleIngredientId(i)" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                        <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter2" (click)="deleteObject('ingredient',i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                      </td>
+                    </tr>
+                   
+             
+                  </tbody>
+                </table>
+                <div class="adnew-ingredient">
+                  <a data-toggle="modal" data-target="#exampleModalCenter" class="save-btn" (click)="openPopuop('ingredientToShow')">Add New</a> 
+                </div>
+                <div *ngIf="intToShowErrorMessage" class="invalid-formdata">
+                   {{intToShowErrorMessage}}
+               </div>
+             </div>
+             <!-- Ingredient To Sale-->
+             <div class="form-group col-md-12">
+              <label for="inputEmail4">Ingredients To Sale</label>
+               <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""></textarea> -->
+               <table class="table ingredient">
+                 <thead class="" style="background-color: #741717;color: #fff;text-align: center;">
+                   <tr>
+                     <th scope="col">Product Name</th>
+                     <th scope="col">Minimum Order</th>
+                     <th scope="col">Action</th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr *ngFor="let item of ingredientsToSale; let i = index;">
+                     <td>{{item.ingredientName}}</td>
+                     <td>{{item.minimumOrder}}</td>
+                     <td>
+                       <a href="" data-toggle="modal" data-target="#exampleToSale" (click)="getSingleIngredientToSale(i)" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                       <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter2" (click)="deleteObject('ingredientToSale',i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                     </td>
+                   </tr>
+                  
+            
+                 </tbody>
+               </table>
+               <div class="adnew-ingredient">
+                 <a data-toggle="modal" data-target="#exampleToSale" class="save-btn" (click)="openPopuop('ingredientToSale')">Add New</a> 
+               </div>
+               <div *ngIf="intToSaleErrorMessage" class="invalid-formdata">
+                  {{intToSaleErrorMessage}}
+              </div>
+            </div>
+
+            </div>
+             <h4>Directions</h4>
+
+            <div class="form-row">
+             <div class="form-group col-md-12">
+               <label for="inputEmail4">Direction Points</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="directions"
+                id="exampleFormControlTextarea1" rows="3"
+                name="directions" 
+                placeholder="Direction Points"                                  
+                id="inputAddress" 
+                [ngClass]="{'ng-invalid ng-touched': submitted && f['directions'].errors }" 
+                ></textarea>
+                <div *ngIf="submitted && f['directions'].errors" class="invalid-formdata">
+                  Direction Points is required
+               </div>
+               <div *ngIf="submitted && f['directions'].hasError('whitespace') && f['directions'].value" class="invalid-formdata">
+                Direction Points Cannot contain only spaces
+              </div>
+             </div>
+           </div>
+       </section>
+       <section class="address-info-form">      
+          <h4>Recipe Note</h4>
+
+          <div class="form-row">
+           <div class="form-group col-md-12">
+             <label for="inputEmail4">Recipe Note Points</label>
+             <textarea class="form-control" id="exampleFormControlTextarea1" formControlName="recipeNote"
+              id="exampleFormControlTextarea1" rows="3"
+              name="recipeNote" 
+              placeholder="Recipe Note Points"                                  
+              id="inputAddress" 
+              [ngClass]="{'ng-invalid ng-touched': submitted && f['recipeNote'].errors }" 
+              ></textarea>
+              <div *ngIf="submitted && f['recipeNote'].errors" class="invalid-formdata">
+                Recipe Note Points is required
+              </div>
+              <div *ngIf="submitted && f['recipeNote'].hasError('whitespace')  && f['recipeNote'].value" class="invalid-formdata">
+                Recipe Note Cannot contain only spaces
+              </div>
+           </div>
+           </div>
+     </section>
+     <section class="address-info-form">
+        <h4>Nutritions</h4>
+        <!-- Ingredient To show-->
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <!-- <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder=""></textarea> -->
+            <table class="table ingredient">
+              <thead class="" style="background-color: #741717;color: #fff;text-align: center;">
+                <tr>
+                  <th scope="col">Nutrition Type</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of nutritionList; let i = index;">
+                  <td>{{item.nutritionType}}</td>
+                  <td>{{item.quantity}}</td>
+                  <td>{{item.unit}}</td>
+                  <td>
+                    <a href="" data-toggle="modal" data-target="#exampleNutrition" (click)="getSingleNutritionID(i)" class="edit-btn"><i class="fa fa-pencil" aria-hidden="true" ></i></a>
+                    <a href="" type="button" class="cross-btn-table" data-toggle="modal" data-target="#exampleModalCenter2" (click)="deleteObject('nutrition',i)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                  </td>
+                </tr>   
+              </tbody>
+            </table>
+            <div class="adnew-ingredient">
+              <a data-toggle="modal" data-target="#exampleNutrition" class="save-btn" (click)="openPopuop('nutrition')">Add New</a> 
+            </div>
+            <!-- <div *ngIf="nutritionErrorMessage" class="invalid-formdata">
+                {{nutritionErrorMessage}}
+            </div> -->
+         </div>
+        </div>
+        
+        <!-- <div class="form-row">
+         <div class="form-group col-md-6">
+           <label for="inputEmail4">Calories (In Kcal)</label>
+           <input type="text" class="form-control" id=""
+            class="form-control"
+            formControlName="nutritionCalories"
+            name="nutrition"     
+            placeholder="">
+         </div>
+         <div class="form-group col-md-6">
+           <label for="inputPassword4">Carbs (In Gms.)</label>
+           <input type="text" class="form-control"
+           formControlName="nutritionCarbs"
+           name="nutrition"
+           id="" placeholder="">
+         </div>
+       </div>
+
+       <div class="form-row">
+         <div class="form-group col-md-6">
+           <label for="inputEmail4">Protein (In Gms.)</label>
+           <input type="text" class="form-control"
+           formControlName="nutritionProtein"
+           name="nutrition" id="" placeholder="">
+         </div>
+         <div class="form-group col-md-6">
+           <label for="inputPassword4">Fat (In Gms.)</label>
+           <input type="text" class="form-control"
+           formControlName="nutritionFat"
+           name="nutrition" id="" placeholder="">
+         </div>
+       </div> -->
+       <div class="info-per-btn">
+        <button type="button" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage">{{buttonTitle}}</button>
+        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage"> 
+      </div>
+   </section>
+  </form>
+</div>
+
+<!-- Modal Ingredents To Show -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="inToShow">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"> {{showTitle}} Ingredients</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body custom-form">
+          <form [formGroup]="ingredientForm">
+              <!-- <div class="form-group" *ngIf="selectIngredientOption">
+              <label for="inputEmail4">Choose Product</label>
+                <select class="form-control" (change)="productOptions($event)">
+                  <option>Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no"> No</option>
+                </select>
+              </div> -->
+              <!-- <div class="form-group" *ngIf="chooseProduct">
+                <label for="inputEmail4">Choose Product</label>
+                <ngx-autocomplete [searchKeyword]="'productDescription'" 
+                    [inputId]="'searchProduct'" 
+                    [placeholderValue]="'Search Products'" 
+                    [entries]="productsName" 
+                    (selectedValue)="selectEvent($event)">
+                </ngx-autocomplete>
+                </div> -->
+                <div class="form-group">
+                  <label for="inputEmail4">Enter Product Name</label>
+                  <input type="text"class="form-control"
+                    formControlName="ingredientName"
+                    name="ingredientName"                                   
+                    id="inputAddress" 
+                    [ngClass]="{'ng-invalid ng-touched': submitted && in['ingredientName'].errors }">
+                    <div *ngIf="submittedd && in['ingredientName'].errors && in['ingredientName'].touched" class="invalid-formdata">
+                      Product Name is required
+                    </div>
+                    <div *ngIf="submitted && in['ingredientName'].hasError('whitespace') && in['ingredientName'].value" class="invalid-formdata">
+                      City Name Cannot contain only spaces
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Quantity</label>
+                  <input type="number" class="form-control"
+                    formControlName="quantity"
+                    min="0"
+                    name="quantity"                                   
+                    id="inputAddress" 
+                    [ngClass]="{'ng-invalid ng-touched': submitted && in['quantity'].errors }">
+                    <div *ngIf="submittedd && in['quantity'].errors  && in['quantity'].touched && !in['quantity'].errors?.['min']" class="invalid-formdata">
+                      Quantity is required
+                    </div>
+                    <div *ngIf="in['quantity'].errors?.['min']" class="invalid-formdata">
+                      Minimum Quantity required number is 1.
+                   </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Unit</label>
+                  <input type="text" class="form-control"
+                    formControlName="unit"
+                    name="unit"                                   
+                    id="inputAddress" 
+                    [ngClass]="{'ng-invalid ng-touched': submitted && in['unit'].errors }">
+                    <div *ngIf="submittedd && in['unit'].errors && in['unit'].touched" class="invalid-formdata">
+                        Unit is required
+                   </div>
+                   <div *ngIf="submitted && in['unit'].hasError('whitespace') && in['unit'].value" class="invalid-formdata">
+                    Unit Cannot contain only spaces
+                  </div>
+                </div>
+                                              
+              <div class="info-per-btn">
+                  <button type="button" (click)="ingredientSubmit()"class="save-btn">Submit</button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ingredient To Sale -->
+<div class="modal fade customer-delete-model" id="exampleToSale" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="inTosale">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"> {{showTitle}} Ingredients To Sale</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body custom-form">
+          <form [formGroup]="ingredientToSaleForm">
+              <div class="form-group">
+                <label for="inputEmail4">Choose Product</label>
+                <!-- <ngx-autocomplete [searchKeyword]="'productDescription'" 
+                    [inputId]="'searchProduct'" 
+                    [placeholderValue]="'Search Products'" 
+                    [entries]="productsName" 
+                    (selectedValue)="selectEvent($event)"
+                    >
+                </ngx-autocomplete> -->
+                <ng-multiselect-dropdown [placeholder]="'Search Product'" 
+                formControlName="productId" 
+                [settings]="SingleSelectionDropdownSettings"
+                (onSelect)="selectEvent($event)"
+                [data]="productsName">
+                </ng-multiselect-dropdown>
+                <!-- <div *ngIf="submitToSale && inToSale['productId'].errors" class="invalid-formdata">
+                  Product is required
+              </div> -->
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Minimum Order</label>
+                  <input type="number" class="form-control"
+                    formControlName="minimumOrder"
+                    name="minimumOrder"                                   
+                    id="inputAddress" 
+                    min="0"
+                    [ngClass]="{'ng-invalid ng-touched': submitted && inToSale['minimumOrder'].errors }">
+                    <div *ngIf="submitToSale && inToSale['minimumOrder'].errors && inToSale['minimumOrder'].touched && !inToSale['quantity'].errors?.['min']" class="invalid-formdata">
+                      minimum Order is required
+                  </div>
+                  <div *ngIf="inToSale['minimumOrder'].errors?.['min']" class="invalid-formdata">
+                    Minimum required number is 1.
+                 </div>
+                </div>
+                
+                                              
+              <div class="info-per-btn">
+                  <button type="button" (click)="ingredientToSaleSubmit()"class="save-btn">Submit</button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Modal Nutrition-->
+<div class="modal fade customer-delete-model" id="exampleNutrition" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="nutToShow">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle"> {{showTitle}} Nutrition</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body custom-form">
+          <form [formGroup]="nutritionsForm">
+                <div class="form-group">
+                  <label for="inputEmail4">Enter Nutrition Type</label>
+                  <input type="text"class="form-control"
+                    formControlName="nutritionType"
+                    name="nutritionType"                                   
+                    id="inputAddress" 
+                    [ngClass]="{'ng-invalid ng-touched': submitToNutrition && n['nutritionType'].errors }">
+                    <div *ngIf="submitToNutrition && n['nutritionType'].errors && n['nutritionType'].touched" class="invalid-formdata">
+                      Nutrition Type is required
+                    </div>
+                    <div *ngIf="submitted && n['nutritionType'].hasError('whitespace') && n['nutritionType'].value" class="invalid-formdata">
+                      Nutrition Type Cannot contain only spaces
+                    </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Quantity</label>
+                  <input type="number" class="form-control"
+                    formControlName="quantity"
+                    name="quantity"                                   
+                    id="inputAddress" 
+                    min="0"
+                    [ngClass]="{'ng-invalid ng-touched': submitToNutrition && n['quantity'].errors }">
+                    <div *ngIf="submitToNutrition && n['quantity'].errors && n['quantity'].touched && !n['quantity'].errors?.['min']" class="invalid-formdata">
+                      Quantity is required
+                    </div>
+                    <div *ngIf="n['quantity'].errors?.['min']" class="invalid-formdata">
+                      Minimum Quantity required number is 1.
+                  </div> 
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Unit</label>
+                  <input type="text" class="form-control"
+                    formControlName="unit"
+                    name="unit"                                   
+                    id="inputAddress" 
+                    [ngClass]="{'ng-invalid ng-touched': submitToNutrition && n['unit'].errors }">
+                    <div *ngIf="submitToNutrition && n['unit'].errors && n['unit'].touched" class="invalid-formdata">
+                        Unit is required
+                  </div>
+                  <div *ngIf="submitted && n['unit'].hasError('whitespace') && n['unit'].value" class="invalid-formdata">
+                    Unit Cannot contain only spaces
+                  </div>
+                </div>
+                                              
+              <div class="info-per-btn">
+                  <button type="button" (click)="nutritionsSubmit()"class="save-btn">Submit</button>
+              </div>
+          </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Delete Pop up-->
+
+<!-- Modal -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Delete Recipe</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h2>Are You Sure?</h2>
+          <p>Do you really want to delete this Recipe data?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="deleteIngredientObject()" >Delete</button>
+          <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Modal Delete Image -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter3" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to delete this Image?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="deleteSingleImage()">Delete</button>
+        <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to {{buttonTitle}} this data?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="onSubmit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template> 

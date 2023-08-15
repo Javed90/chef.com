@@ -1,0 +1,17 @@
+ .invalid-formdata {
+    color: red;
+    font-size: 12px;
+    padding-top: 5px;
+}
+
+/* .form-group {
+    position: relative;
+}
+
+.invalid-formdata {
+    position: absolute;
+    right: 7px;
+    bottom: 0px;
+    background: red;
+    padding: 0px 5px;
+} */

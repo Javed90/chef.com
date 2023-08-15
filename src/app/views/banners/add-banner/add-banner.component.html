@@ -1,0 +1,212 @@
+<div class="app-main__inner">
+    <!-- Tab panes -->
+    <h3 class="cate-head">{{title}}</h3>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tabs-1" role="tabpanel">
+            <section class="address-info-form">
+
+                     <form  enctype="multipart/form-data" [formGroup]="bannerForm">
+                        <div class="imges-upload text-center">
+                            <p>Banner Picture</p>
+                            <div class="row">
+                                <image-cropper 
+                                  [imageChangedEvent]="imageChangedEvent" 
+                                  [maintainAspectRatio]="true" 
+                                  [aspectRatio]="2 / 1"
+                                  format="png" 
+                                  (imageCropped)="imageCropped($event)" 
+                                  (imageLoaded)="imageLoaded()"
+                                  (cropperReady)="cropperReady()" 
+                                  (loadImageFailed)="loadImageFailed()">
+                                </image-cropper>
+                            </div>
+                          
+                             <div class="imgUp m-auto">
+                                <div class="imagePreview" *ngIf="!bannerID"><img [src]="croppedImage" *ngIf="croppedImage" /></div>
+                                <div class="imagePreview" *ngIf="bannerID && croppedImage"> <img [src]="croppedImage" *ngIf="croppedImage" /> </div>
+                                <div class="imagePreview" *ngIf="bannerID && !croppedImage"><img src="{{imagePath}}/{{editImages}}"></div>
+                                <label class="btn btn-primary">
+                                   <!-- Upload<input type="file"   name="featureBannerImage" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="uploadImage($event)"> -->
+                                   Upload<input type="file"   name="featureBannerImage" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" (change)="fileChangeEvent($event)">
+                                </label>
+                              </div><!-- col-2 -->
+                            <div *ngIf="imageMessage" class="invalid-formdata">
+                                   Banner Image is required
+                            </div>
+                            <div *ngIf="imagesLimitOrType" class="invalid-formdata">
+                              {{imagesLimitOrType}}
+                            </div>
+                        </div>
+                      <div class="form-group">
+                        <label for="inputAddress">Banner Type</label>
+                        <select id="" name="featureBannerType" class="form-control" formControlName="featureBannerType" (change)="changeType($event)">
+                          <option selected="" value="">Choose Banner Type</option>
+                          <option value="Home">Home</option> 
+                          <option value="Category">Category</option>
+                          <!-- <option *ngFor="let item of bannerList" value="{{item.featureBannerType}}">{{item.featureBannerType}}</option> -->
+                        </select>
+                        <div *ngIf="submitted && f['featureBannerType'].errors" class="invalid-formdata">
+                            Banner Type is required
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="inputAddress">Sequence Number</label>
+                        <input type="number" name="sequenceNumber" min="1" formControlName="sequenceNumber" class="form-control" placeholder="">
+                        <div *ngIf="submitted && f['sequenceNumber'].errors && !f['sequenceNumber'].errors?.['min']" class="invalid-formdata">
+                          Sequence Number is required
+                        </div>
+                        <div *ngIf="f['sequenceNumber'].errors?.['min']" class="invalid-formdata">
+                            Minimum required number is 1.
+                      </div> 
+                    
+                      </div>
+                      <div class="form-row" *ngIf="showCatProdRecipe == 'Home'">
+                        <!-- <div class="form-group col-md-6" *ngIf="!recipeChooseRecipe && !recipeChooseCollection"> -->
+                          <div class="form-group col-md-6">
+                           <label for="inputAddress">Choose Category</label>
+                           <ng-multiselect-dropdown
+                            [settings]="dropdownCategorySettings"
+                            [data]="allCategories"
+                            (onSelect)="selectCategoryEvent($event)"
+                            (onSelectAll)="onSelectAllCategory($event)"
+                            (onDeSelect)="DropDownClose($event)"
+                            (onDeSelectAll)="onDeSelectAllCategory($event)"
+                            formControlName="categoryId"
+                            >
+                          </ng-multiselect-dropdown>
+                          
+                        </div>
+                        <!-- <div class="form-group col-md-6" *ngIf="!recipeChooseRecipe && !recipeChooseCollection"> -->
+                          <div class="form-group col-md-6">
+                          <label for="inputAddress">Choose Sub-Category</label>
+                          <ng-multiselect-dropdown
+                           [settings]="dropdownSubCategorySettings"
+                           [data]="subCategoryNames"
+                           (onSelect)="selectSubCategoryEvent($event)"
+                           (onSelectAll)="onSelectAllSubCategory($event)"
+                           (onDeSelect)="DropSubClose($event)"
+                           (onDeSelectAll)="onDeSelectAllSubCategory($event)"
+                           formControlName = "subCategoryId"
+                           >
+                         </ng-multiselect-dropdown>
+                         
+                       </div>
+                      <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!recipeChooseRecipe && !recipeChooseCollection"> -->
+                        <div class="form-group col-md-3">
+                        <label for="inputAddress">Choose Product</label>
+                        
+                        <ng-multiselect-dropdown
+                          [settings]="dropdownSettings"
+                          [data]="searchProducts"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAllProducts($event)"
+                          (onDeSelect)="DropProduct($event)"
+                          (onDeSelectAll)="onDeSelectAllProducts($event)"
+                          formControlName="productId">
+                        </ng-multiselect-dropdown>
+                      </div>
+        
+                      <!-- <div class="col-md-1 m-auto" *ngIf="recipeProductOr"> -->
+                        <div class="col-md-1 m-auto">
+                        <div class="devider-class">
+                          <span>Or</span>
+                        </div>
+                      </div>
+        
+                      <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!recipeChooseProduct && !recipeChooseCollection"> -->
+                        <div class="form-group col-md-3">
+                        <label for="inputAddress">Choose Recipes</label>
+                       
+                        <ng-multiselect-dropdown
+                          [settings]="dropdownRecipeSettings"
+                          [data]="allRecipes"
+                          (onSelect)="onItemSelectRecipe($event)"
+                          (onSelectAll)="onSelectAllRecipe($event)"
+                          (onDeSelect)="DropRecipe($event)"
+                          (onDeSelectAll)="onDeSelectAllRecipe($event)"
+                          formControlName="recipeId">
+                        </ng-multiselect-dropdown>
+                      </div>
+
+                      <!-- <div class="col-md-1 m-auto" *ngIf="recipeProductOr"> -->
+                      <div class="col-md-1 m-auto">
+                        <div class="devider-class">
+                          <span>Or</span>
+                        </div>
+                      </div>
+
+                      <!-- <div class="form-group col-md-{{classProduct}}" *ngIf="!recipeChooseProduct && !recipeChooseRecipe"> -->
+                        <div class="form-group col-md-3">
+                        <label for="inputAddress">Choose Collection</label>
+                       
+                        <ng-multiselect-dropdown
+                          [settings]="dropdownCollectionsSettings"
+                          [data]="allCollections"
+                          (onSelect)="onItemSelectCollection($event)"
+                          (onSelectAll)="onSelectAllCollection($event)"
+                          (onDeSelect)="DropDownCollectionClose($event)"
+                          (onDeSelectAll)="onDeSelectCollections($event)"
+                          formControlName="collectionId">
+                        </ng-multiselect-dropdown>
+                      </div>
+                      <div *ngIf="recipeProductError" class="invalid-formdata">
+                        Choose Category(Choose Product OR Choose Recipe OR Choose Collection) is required
+                      </div>
+                      <!-- <div *ngIf="recipeProductError" class="invalid-formdata">
+                        Choose Category(Choose Product OR Choose Recipe) is required
+                      </div> -->
+                    </div>
+        
+                     
+                      <div class="info-per-btn">
+                        <button type="submit" class="save-btn" (click)="openModal(template)" [disabled]="isLoaderImage">{{buttonName}}</button> 
+                        <img src="assets/images/formload.gif" class="form-button-loader" *ngIf="isLoaderImage">
+                      </div>
+                    </form>
+                    </section>
+        </div>
+      
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade customer-delete-model" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>Are You Sure?</h2>
+        <p>Do you really want to delete this Image?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="deleteSingleImage()">Delete</button>
+        <button type="button" class="btn  cancel-btn" data-dismiss="modal" aria-label="Close">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #template>  
+  <div class="customer-delete-model">
+    <div class="modal-header">
+      <!-- <h5 class="modal-title" id="exampleModalCenterTitle">Delete Image</h5> -->
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">×</span>
+     </button>
+    </div>
+    <div class="modal-body">
+      <h2>Are You Sure?</h2>
+      <p>Do you really want to {{buttonName}} this data?</p>
+    </div>
+    <div class="modal-footer"Cancel>
+      <button type="button" class="btn btn-secondary save-btn" data-dismiss="modal" (click)="submit()">Yes</button>
+      <button type="button" class="btn cancel-btn" (click)="modalRef.hide()">No</button>
+    </div> 
+  </div>
+  
+</ng-template>

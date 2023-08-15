@@ -1,0 +1,32 @@
+.form-group {
+    position: relative;
+}
+.invalid-formdatas{
+    color: red;
+}
+.invalid-formdata {
+    position: absolute;
+    bottom: -17px;
+    right: 0;
+    background-color: red;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 0px 5px;
+}
+.address-info-form{
+    overflow: inherit;
+}
+label.isglobalcupons span {
+    display: block;
+    padding-left: 29px;
+}
+
+.isglobal {
+    padding-left: 0px !important;
+    float: left;
+    width: 65px !important;
+    box-shadow: none !important;
+}
+.save-btn {
+    text-transform: capitalize;
+}
